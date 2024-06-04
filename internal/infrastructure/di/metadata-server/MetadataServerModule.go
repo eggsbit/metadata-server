@@ -8,10 +8,13 @@ import (
 	"github.com/eggsbit/metadata-server/api/server"
 	router "github.com/eggsbit/metadata-server/api/server/router"
 	"github.com/eggsbit/metadata-server/configs"
+	nftmetadata "github.com/eggsbit/metadata-server/internal/domain/service/nft-metadata"
 	"github.com/eggsbit/metadata-server/internal/infrastructure/di/common"
 	apiHandler "github.com/eggsbit/metadata-server/internal/infrastructure/http/handler/api"
 	webHandler "github.com/eggsbit/metadata-server/internal/infrastructure/http/handler/web"
 	log "github.com/eggsbit/metadata-server/internal/infrastructure/logger"
+	"github.com/eggsbit/metadata-server/internal/infrastructure/mongodb"
+	"github.com/eggsbit/metadata-server/internal/infrastructure/repository"
 	"go.uber.org/fx"
 )
 
@@ -28,6 +31,10 @@ func (msm MetadataServerModule) BuildOptions(config *configs.Config) fx.Option {
 			apiHandler.NewNftCollectionApiHandler,
 			apiHandler.NewNftItemApiHandler,
 			webHandler.NewMetadataWebHandler,
+			mongodb.NewMongodbConnection,
+			repository.NewNftCollectionDocRepository,
+			repository.NewNftItemDocRepository,
+			nftmetadata.NewNftMetadataService,
 		),
 		fx.Invoke(
 			server.RegisterRoutes,

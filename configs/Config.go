@@ -11,12 +11,16 @@ const (
 )
 
 type Config struct {
-	DatabaseConfig struct {
-		Host     string
-		Port     string
-		Name     string
-		User     string
-		Password string
+	MongodbConfig struct {
+		Host         string
+		Port         string
+		DatabaseName string
+		User         string
+		Password     string
+	}
+	MongodbCollection struct {
+		NftCollectionCollection string
+		NftItemCollection       string
 	}
 	RedisConfig struct {
 		Host     string
@@ -44,7 +48,8 @@ func (c *Config) loadConfiguration() error {
 		return err
 	}
 
-	c.loadDatabaseConfiguration()
+	c.loadMongodbConfiguration()
+	c.loadMongodbCollectionConfiguration()
 	c.loadRedisConfiguration()
 	c.loadMetadataServerConfiguration()
 
@@ -63,18 +68,23 @@ func (c *Config) loadEnvFileIfExist() error {
 	return nil
 }
 
-func (c *Config) loadDatabaseConfiguration() {
-	c.DatabaseConfig.Host = os.Getenv("DATABASE_HOST")
-	c.DatabaseConfig.Port = os.Getenv("DATABASE_PORT")
-	c.DatabaseConfig.Name = os.Getenv("DATABASE_NAME")
-	c.DatabaseConfig.User = os.Getenv("DATABASE_USER")
-	c.DatabaseConfig.Password = os.Getenv("DATABASE_PASSWORD")
+func (c *Config) loadMongodbConfiguration() {
+	c.MongodbConfig.Host = os.Getenv("MONGODB_HOST")
+	c.MongodbConfig.Port = os.Getenv("MONGODB_PORT")
+	c.MongodbConfig.DatabaseName = os.Getenv("MONGODB_DATABASE_NAME")
+	c.MongodbConfig.User = os.Getenv("MONGODB_USER")
+	c.MongodbConfig.Password = os.Getenv("MONGODB_PASSWORD")
+}
+
+func (c *Config) loadMongodbCollectionConfiguration() {
+	c.MongodbCollection.NftCollectionCollection = os.Getenv("MONGODB_NFT_COLLECTION_COLLECTION")
+	c.MongodbCollection.NftItemCollection = os.Getenv("MONGODB_NFT_ITEM_COLLECTION")
 }
 
 func (c *Config) loadRedisConfiguration() {
-	c.DatabaseConfig.Host = os.Getenv("REDIS_HOST")
-	c.DatabaseConfig.Port = os.Getenv("REDIS_PORT")
-	c.DatabaseConfig.Password = os.Getenv("REDIS_PASSWORD")
+	c.RedisConfig.Host = os.Getenv("REDIS_HOST")
+	c.RedisConfig.Port = os.Getenv("REDIS_PORT")
+	c.RedisConfig.Password = os.Getenv("REDIS_PASSWORD")
 }
 
 func (c *Config) loadMetadataServerConfiguration() {

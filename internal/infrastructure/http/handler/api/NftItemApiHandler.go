@@ -11,5 +11,5 @@ func NewNftItemApiHandler() *NftItemApiHandler {
 type NftItemApiHandler struct {
 }
 
-func (niah NftItemApiHandler) HandleActionBorn(ctx *gin.Context) {
+func (niah *NftItemApiHandler) HandleActionBorn(ctx *gin.Context) {
 }

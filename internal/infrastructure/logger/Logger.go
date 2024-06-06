@@ -28,18 +28,18 @@ type LoggerInterface interface {
 
 type Logger struct{}
 
-func (l Logger) Info(category string, message string) {
+func (l *Logger) Info(category string, message string) {
 	log.Info().Str("category", category).Msg("[Metadata Server] " + message)
 }
 
-func (l Logger) Warning(category string, message string) {
+func (l *Logger) Warning(category string, message string) {
 	log.Warn().Str("category", category).Msg("[Metadata Server] " + message)
 }
 
-func (l Logger) Error(category string, message string) {
+func (l *Logger) Error(category string, message string) {
 	log.Error().Str("category", category).Msg("[Metadata Server] " + message)
 }
 
-func (l Logger) Debug(category string, message string) {
+func (l *Logger) Debug(category string, message string) {
 	log.Debug().Str("category", category).Msg("[Metadata Server] " + message)
 }

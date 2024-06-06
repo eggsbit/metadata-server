@@ -6,5 +6,5 @@ type EggsbitNftCollection struct {
 	Description string `bson:"description" json:"description"`
 	Image       string `bson:"image" json:"image"`
 	CoverImage  string `bson:"cover_image" json:"cover_image"`
-	//social_links[string]
+	SocialLinks []string
 }

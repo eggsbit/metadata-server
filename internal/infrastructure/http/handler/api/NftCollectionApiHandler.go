@@ -11,8 +11,8 @@ func NewNftCollectionApiHandler() *NftCollectionApiHandler {
 type NftCollectionApiHandler struct {
 }
 
-func (ncah NftCollectionApiHandler) HandleAddCollectionData(ctx *gin.Context) {
+func (ncah *NftCollectionApiHandler) HandleAddCollectionData(ctx *gin.Context) {
 }
 
-func (ncah NftCollectionApiHandler) HandleUpdateCollectionData(ctx *gin.Context) {
+func (ncah *NftCollectionApiHandler) HandleUpdateCollectionData(ctx *gin.Context) {
 }

@@ -7,5 +7,5 @@ type EggsbitNftItem struct {
 	Description          string `bson:"description" json:"description"`
 	Image                string `bson:"image" json:"image"`
 	Lottie               string `bson:"lottie" json:"lottie"`
-	// Attributes -> {"trait_type": "Material", "value": "Wool fabric"}
+	Attributes           []EggsbitNftItemAttribute
 }

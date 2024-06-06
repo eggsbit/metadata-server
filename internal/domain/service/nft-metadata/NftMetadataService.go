@@ -15,6 +15,9 @@ func NewNftMetadataService(
 }
 
 type NftMetadataServiceInterface interface {
+	GetNftCollectionByIndex(index string, ctx context.Context) (*entity.EggsbitNftCollection, error)
+
+	GetNftItemByIndex(index string, ctx context.Context) (*entity.EggsbitNftItem, error)
 }
 
 type NftMetadataService struct {
@@ -22,19 +25,19 @@ type NftMetadataService struct {
 	nftItemRepository       repository.NftItemDocRepositoryInterface
 }
 
-func (nms *NftMetadataService) GetNftCollectionByIndex(index string, ctx context.Context) *entity.EggsbitNftCollection {
+func (nms *NftMetadataService) GetNftCollectionByIndex(index string, ctx context.Context) (*entity.EggsbitNftCollection, error) {
 	// check dbs
 	// return
 	entity := entity.EggsbitNftCollection{}
-	return &entity
+	return &entity, nil
 }
 
-func (nms *NftMetadataService) GetNftItemByIndex(index string, ctx context.Context) *entity.EggsbitNftItem {
+func (nms *NftMetadataService) GetNftItemByIndex(index string, ctx context.Context) (*entity.EggsbitNftItem, error) {
 	// check db
 	// check ton chain collection index
 	// create a new one
 	// a call to generate image
 	// return
 	entity := entity.EggsbitNftItem{}
-	return &entity
+	return &entity, nil
 }

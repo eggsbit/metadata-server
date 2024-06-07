@@ -47,6 +47,7 @@ require (
 
 require (
 	github.com/gin-gonic/gin v1.10.0
+	github.com/jinzhu/copier v0.4.0
 	github.com/rs/zerolog v1.33.0
 	go.uber.org/dig v1.17.1 // indirect
 	go.uber.org/multierr v1.10.0 // indirect

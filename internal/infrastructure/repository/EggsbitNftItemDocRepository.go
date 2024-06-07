@@ -13,27 +13,27 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func NewNftItemDocRepository(
+func NewEggsbitNftItemDocRepository(
 	mongodb mongodb.MongodbInterface,
 	logger log.LoggerInterface,
 	config *configs.Config,
-) rep_interface.NftItemDocRepositoryInterface {
-	collection := mongodb.GetClient().Database(config.MongodbConfig.DatabaseName).Collection(config.MongodbCollection.NftItemCollection)
-	return &NftItemDocRepository{mongodb: mongodb, collection: collection, logger: logger}
+) rep_interface.EggsbitNftItemDocRepositoryInterface {
+	collection := mongodb.GetClient().Database(config.MongodbConfig.DatabaseName).Collection("nft_item")
+	return &EggsbitNftItemDocRepository{mongodb: mongodb, collection: collection, logger: logger}
 }
 
-type NftItemDocRepository struct {
+type EggsbitNftItemDocRepository struct {
 	mongodb    mongodb.MongodbInterface
 	collection *mongo.Collection
 	logger     log.LoggerInterface
 }
 
-func (nidr *NftItemDocRepository) GetItemByIndex(index string, ctx context.Context) (*entity.EggsbitNftItem, error) {
+func (enidr *EggsbitNftItemDocRepository) GetItemByIndex(index string, ctx context.Context) (*entity.EggsbitNftItem, error) {
 	filter := bson.D{primitive.E{Key: "index", Value: index}}
 
 	var appNftItem *entity.EggsbitNftItem
 
-	nidr.collection.FindOne(ctx, filter).Decode(&appNftItem)
+	enidr.collection.FindOne(ctx, filter).Decode(&appNftItem)
 
 	return appNftItem, bson.ErrDecodeToNil
 }

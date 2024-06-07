@@ -9,19 +9,19 @@ import (
 )
 
 func NewMetadataWebHandler(
-	nftMetadataService nftmetadata.NftMetadataServiceInterface,
+	eggsbitNftMetadataService nftmetadata.EggsbitNftMetadataServiceInterface,
 	collectionResponseBuilder builder.EggsbitNftCollectionMetadataResponseBuilderInterface,
 	itemResponseBuilder builder.EggsbitNftItemMetadataResponseBuilderInterface,
 ) *MetadataWebHandler {
 	return &MetadataWebHandler{
-		nftMetadataService:        nftMetadataService,
+		eggsbitNftMetadataService: eggsbitNftMetadataService,
 		collectionResponseBuilder: collectionResponseBuilder,
 		itemResponseBuilder:       itemResponseBuilder,
 	}
 }
 
 type MetadataWebHandler struct {
-	nftMetadataService        nftmetadata.NftMetadataServiceInterface
+	eggsbitNftMetadataService nftmetadata.EggsbitNftMetadataServiceInterface
 	collectionResponseBuilder builder.EggsbitNftCollectionMetadataResponseBuilderInterface
 	itemResponseBuilder       builder.EggsbitNftItemMetadataResponseBuilderInterface
 }
@@ -29,13 +29,13 @@ type MetadataWebHandler struct {
 func (mwh *MetadataWebHandler) HandleItemData(ctx *gin.Context) {
 	// redis check
 	// get response from service
-	itemEntity, _ := mwh.nftMetadataService.GetNftItemByIndex("1", ctx)
+	itemEntity, _ := mwh.eggsbitNftMetadataService.GetNftItemByIndex("1", ctx)
 	ctx.JSONP(http.StatusOK, mwh.itemResponseBuilder.BuildResponse(*itemEntity))
 }
 
 func (mwh *MetadataWebHandler) HandleCollectionData(ctx *gin.Context) {
 	// redis check
 	// get response from service
-	collectionEntity, _ := mwh.nftMetadataService.GetNftCollectionByIndex("1", ctx)
+	collectionEntity, _ := mwh.eggsbitNftMetadataService.GetCollectionByIdentifier("eggsbit_collection", ctx)
 	ctx.JSONP(http.StatusOK, mwh.collectionResponseBuilder.BuildResponse(*collectionEntity))
 }

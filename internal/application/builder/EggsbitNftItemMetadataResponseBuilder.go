@@ -10,18 +10,12 @@ func NewEggsbitNftItemMetadataResponseBuilder() EggsbitNftItemMetadataResponseBu
 }
 
 type EggsbitNftItemMetadataResponseBuilderInterface interface {
-	BuildResponse(entity entity.EggsbitNftItem) response.MetadataWebResponse
+	BuildResponse(entity entity.EggsbitNftItem) response.ItemMetadataWebResponse
 }
 
 type EggsbitNftItemMetadataResponseBuilder struct {
 }
 
-func (enimrb *EggsbitNftItemMetadataResponseBuilder) BuildResponse(entity entity.EggsbitNftItem) response.MetadataWebResponse {
-	var response = make(map[string]string)
-
-	response["name"] = "olol"
-	response["description"] = "keke"
-	response["time"] = "gogo-timerr"
-
-	return response
+func (enimrb *EggsbitNftItemMetadataResponseBuilder) BuildResponse(entity entity.EggsbitNftItem) response.ItemMetadataWebResponse {
+	return response.ItemMetadataWebResponse{}
 }

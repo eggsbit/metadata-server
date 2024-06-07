@@ -10,18 +10,18 @@ func NewEggsbitNftCollectionMetadataResponseBuilder() EggsbitNftCollectionMetada
 }
 
 type EggsbitNftCollectionMetadataResponseBuilderInterface interface {
-	BuildResponse(entity entity.EggsbitNftCollection) response.MetadataWebResponse
+	BuildResponse(entity entity.EggsbitNftCollection) response.CollectionMetadataWebResponse
 }
 
 type EggsbitNftCollectionMetadataResponseBuilder struct {
 }
 
-func (encmrb *EggsbitNftCollectionMetadataResponseBuilder) BuildResponse(entity entity.EggsbitNftCollection) response.MetadataWebResponse {
-	var response = make(map[string]string)
-
-	response["name"] = "gogo"
-	response["description"] = "gogo-description"
-	response["time"] = "gogo-time"
-
-	return response
+func (encmrb *EggsbitNftCollectionMetadataResponseBuilder) BuildResponse(entity entity.EggsbitNftCollection) response.CollectionMetadataWebResponse {
+	return response.CollectionMetadataWebResponse{
+		Name:        entity.Name,
+		Description: entity.Description,
+		Image:       entity.Image,
+		CoverImage:  entity.CoverImage,
+		SocialLinks: entity.SocialLinks,
+	}
 }

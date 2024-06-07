@@ -33,7 +33,10 @@ func (encdr *EggsbitNftCollectionDocRepository) GetCollectionByIdentifier(identi
 
 	var appNftCollection *entity.EggsbitNftCollection
 
-	encdr.collection.FindOne(ctx, filter).Decode(&appNftCollection)
+	err := encdr.collection.FindOne(ctx, filter).Decode(&appNftCollection)
+	if err != nil && err == mongo.ErrNoDocuments {
+		return nil, err
+	}
 
-	return appNftCollection, bson.ErrDecodeToNil
+	return appNftCollection, nil
 }

@@ -33,7 +33,10 @@ func (enidr *EggsbitNftItemDocRepository) GetItemByIndex(index string, ctx conte
 
 	var appNftItem *entity.EggsbitNftItem
 
-	enidr.collection.FindOne(ctx, filter).Decode(&appNftItem)
+	err := enidr.collection.FindOne(ctx, filter).Decode(&appNftItem)
+	if err != nil && err == mongo.ErrNoDocuments {
+		return nil, err
+	}
 
-	return appNftItem, bson.ErrDecodeToNil
+	return appNftItem, nil
 }

@@ -17,5 +17,10 @@ type EggsbitNftItemMetadataResponseBuilder struct {
 }
 
 func (enimrb *EggsbitNftItemMetadataResponseBuilder) BuildResponse(entity entity.EggsbitNftItem) response.ItemMetadataWebResponse {
-	return response.ItemMetadataWebResponse{}
+	return response.ItemMetadataWebResponse{
+		Name:        entity.Name,
+		Description: entity.Description,
+		Image:       entity.Image,
+		Lottie:      entity.Lottie,
+	}
 }

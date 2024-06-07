@@ -1,8 +1,8 @@
 package response
 
 type ItemMetadataWebResponse struct {
-	Name        string
-	Description string
-	Image       string
-	Lottie      string
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	Image       string `json:"image"`
+	Lottie      string `json:"lottie"`
 }

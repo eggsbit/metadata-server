@@ -9,6 +9,7 @@ const (
 	LogCategoryDefault = "default"
 	LogCategorySystem  = "application.system"
 	LogCategoryLogic   = "application.logic"
+	LogCategoryDebug   = "application.debug"
 )
 
 func NewLogger() LoggerInterface {

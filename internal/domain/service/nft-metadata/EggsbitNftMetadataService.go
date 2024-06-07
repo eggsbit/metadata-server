@@ -31,8 +31,8 @@ type EggsbitNftMetadataService struct {
 func (enms *EggsbitNftMetadataService) GetCollectionByIdentifier(indentifier string, ctx context.Context) (*entity.EggsbitNftCollection, error) {
 	// check dbs
 	// return
-	entity, _ := enms.eggsbitNftCollectionRepository.GetCollectionByIdentifier(indentifier, ctx)
-	return entity, nil
+	entity, err := enms.eggsbitNftCollectionRepository.GetCollectionByIdentifier(indentifier, ctx)
+	return entity, err
 }
 
 func (enms *EggsbitNftMetadataService) GetNftItemByIndex(index string, ctx context.Context) (*entity.EggsbitNftItem, error) {
@@ -41,6 +41,6 @@ func (enms *EggsbitNftMetadataService) GetNftItemByIndex(index string, ctx conte
 	// create a new one
 	// a call to generate image
 	// return
-	entity := entity.EggsbitNftItem{}
-	return &entity, nil
+	entity, err := enms.eggsbitNftItemRepository.GetItemByIndex(index, ctx)
+	return entity, err
 }

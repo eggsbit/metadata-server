@@ -40,3 +40,17 @@ func (enidr *EggsbitNftItemDocRepository) GetItemByIndex(index string, ctx conte
 
 	return appNftItem, nil
 }
+
+func (enidr *EggsbitNftItemDocRepository) Add(eggsbitNftItem entity.EggsbitNftItem, ctx context.Context) error {
+	insertResult, err := enidr.collection.InsertOne(ctx, eggsbitNftItem)
+
+	if err != mongo.ErrNilCursor {
+		return err
+	}
+
+	if _, ok := insertResult.InsertedID.(primitive.ObjectID); ok {
+		return nil
+	} else {
+		return err
+	}
+}

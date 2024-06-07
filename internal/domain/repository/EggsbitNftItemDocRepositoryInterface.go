@@ -8,4 +8,6 @@ import (
 
 type EggsbitNftItemDocRepositoryInterface interface {
 	GetItemByIndex(index string, ctx context.Context) (*entity.EggsbitNftItem, error)
+
+	Add(eggsbitNftItem entity.EggsbitNftItem, ctx context.Context) error
 }

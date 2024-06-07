@@ -9,6 +9,7 @@ import (
 	router "github.com/eggsbit/metadata-server/api/server/router"
 	"github.com/eggsbit/metadata-server/configs"
 	"github.com/eggsbit/metadata-server/internal/application/builder"
+	eggsbitnftdata "github.com/eggsbit/metadata-server/internal/domain/builder/eggsbit-nft-data"
 	nftmetadata "github.com/eggsbit/metadata-server/internal/domain/service/nft-metadata"
 	"github.com/eggsbit/metadata-server/internal/infrastructure/di/common"
 	apiHandler "github.com/eggsbit/metadata-server/internal/infrastructure/http/handler/api"
@@ -38,6 +39,8 @@ func (msm MetadataServerModule) BuildOptions(config *configs.Config) fx.Option {
 			nftmetadata.NewEggsbitNftMetadataService,
 			builder.NewEggsbitNftCollectionMetadataResponseBuilder,
 			builder.NewEggsbitNftItemMetadataResponseBuilder,
+			eggsbitnftdata.NewImageFileBuilder,
+			eggsbitnftdata.NewNftItemBuilder,
 		),
 		fx.Invoke(
 			server.RegisterRoutes,

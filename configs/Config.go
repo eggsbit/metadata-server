@@ -30,6 +30,9 @@ type Config struct {
 	MetadataServerConfig struct {
 		Port string
 	}
+	ApplicationConfig struct {
+		NftItemImageBaseUrl string
+	}
 }
 
 func NewConfig() (*Config, error) {
@@ -52,6 +55,7 @@ func (c *Config) loadConfiguration() error {
 	c.loadMongodbCollectionConfiguration()
 	c.loadRedisConfiguration()
 	c.loadMetadataServerConfiguration()
+	c.loadApplicationConfiguration()
 
 	return nil
 }
@@ -89,4 +93,8 @@ func (c *Config) loadRedisConfiguration() {
 
 func (c *Config) loadMetadataServerConfiguration() {
 	c.MetadataServerConfig.Port = os.Getenv("WEB_APPLICATION_PORT")
+}
+
+func (c *Config) loadApplicationConfiguration() {
+	c.ApplicationConfig.NftItemImageBaseUrl = os.Getenv("NFT_ITEM_IMAGE_BASE_URL")
 }

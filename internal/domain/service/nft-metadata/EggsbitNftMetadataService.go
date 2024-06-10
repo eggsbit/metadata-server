@@ -6,6 +6,7 @@ import (
 	eggsbitnftdata "github.com/eggsbit/metadata-server/internal/domain/builder/eggsbit-nft-data"
 	"github.com/eggsbit/metadata-server/internal/domain/entity"
 	"github.com/eggsbit/metadata-server/internal/domain/repository"
+	log "github.com/eggsbit/metadata-server/internal/infrastructure/logger"
 )
 
 func NewEggsbitNftMetadataService(
@@ -13,12 +14,14 @@ func NewEggsbitNftMetadataService(
 	eggsbitNftItemRepository repository.EggsbitNftItemDocRepositoryInterface,
 	nftItemBuilder eggsbitnftdata.NftItemBuilderInterface,
 	imageFileBuilder eggsbitnftdata.ImageFileBuilderInterface,
+	logger log.LoggerInterface,
 ) EggsbitNftMetadataServiceInterface {
 	return &EggsbitNftMetadataService{
 		eggsbitNftCollectionRepository: eggsbitNftCollectionRepository,
 		eggsbitNftItemRepository:       eggsbitNftItemRepository,
 		nftItemBuilder:                 nftItemBuilder,
 		imageFileBuilder:               imageFileBuilder,
+		logger:                         logger,
 	}
 }
 
@@ -33,6 +36,7 @@ type EggsbitNftMetadataService struct {
 	eggsbitNftItemRepository       repository.EggsbitNftItemDocRepositoryInterface
 	nftItemBuilder                 eggsbitnftdata.NftItemBuilderInterface
 	imageFileBuilder               eggsbitnftdata.ImageFileBuilderInterface
+	logger                         log.LoggerInterface
 }
 
 func (enms *EggsbitNftMetadataService) GetCollectionByIdentifier(indentifier string, ctx context.Context) (*entity.EggsbitNftCollection, error) {
@@ -49,15 +53,9 @@ func (enms *EggsbitNftMetadataService) GetNftItemByIndex(index string, ctx conte
 	}
 
 	// check ton chain collection index
-	imagePath, imagePathErr := enms.imageFileBuilder.CreateRandomStartingEggImage()
+	//imagePath, imagePathErr := enms.imageFileBuilder.CreateRandomStartingEggImage()
 
-	var eggsbitNftItem entity.EggsbitNftItem
-	if imagePathErr != nil {
-		eggsbitNftItem = enms.nftItemBuilder.BuildByIndex(index)
-	} else {
-		eggsbitNftItem = enms.nftItemBuilder.BuildByIndexAndImage(index, *imagePath)
-	}
-
+	eggsbitNftItem := enms.nftItemBuilder.BuildStartEggByIndex(index, ctx)
 	enms.eggsbitNftItemRepository.Add(eggsbitNftItem, ctx)
 
 	return &eggsbitNftItem, nil

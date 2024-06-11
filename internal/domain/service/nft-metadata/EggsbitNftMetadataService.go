@@ -59,7 +59,7 @@ func (enms *EggsbitNftMetadataService) GetNftItemByIndex(index string, collectio
 
 	// check ton chain collection index
 	eggsbitNftItem, imageUuid := enms.nftItemBuilder.BuildStartEggByIndex(index, ctx)
-	createImageErr := enms.createStartingEggImage(imageUuid, eggsbitNftItem)
+	createImageErr := enms.createStartingEggImage(imageUuid, eggsbitNftItem, ctx)
 	if createImageErr != nil {
 		enms.logger.Error(log.LogCategoryLogic, createImageErr.Error())
 	}
@@ -68,7 +68,7 @@ func (enms *EggsbitNftMetadataService) GetNftItemByIndex(index string, collectio
 	return &eggsbitNftItem, nil
 }
 
-func (enms *EggsbitNftMetadataService) createStartingEggImage(imageUuid string, eggsbitNftItem entity.NftItem) error {
+func (enms *EggsbitNftMetadataService) createStartingEggImage(imageUuid string, eggsbitNftItem entity.NftItem, ctx context.Context) error {
 	var eggPattern string
 	var eggColorScheme string
 
@@ -82,5 +82,5 @@ func (enms *EggsbitNftMetadataService) createStartingEggImage(imageUuid string, 
 		}
 	}
 
-	return enms.imageFileBuilder.CreateStartingEggImage(imageUuid, eggPattern, eggColorScheme)
+	return enms.imageFileBuilder.CreateStartingEggImage(imageUuid, eggPattern, eggColorScheme, ctx)
 }

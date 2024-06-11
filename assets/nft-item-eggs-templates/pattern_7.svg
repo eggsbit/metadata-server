@@ -3,7 +3,7 @@
   <defs>
     <style>
       .cls-1 {
-        fill: #1e122b;
+        fill: [[color_1]];
       }
 
       .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8 {
@@ -11,23 +11,23 @@
       }
 
       .cls-2 {
-        fill: #c5acb6;
+        fill: [[color_2]];
       }
 
       .cls-3 {
-        fill: #5c779d;
+        fill: [[color_3]];
       }
 
       .cls-4 {
-        fill: #fcce8f;
+        fill: [[color_4]];
       }
 
       .cls-5 {
-        fill: #f6ab89;
+        fill: [[color_5]];
       }
 
       .cls-6 {
-        fill: #996b8e;
+        fill: [[color_6]];
       }
 
       .cls-9 {
@@ -35,12 +35,12 @@
       }
 
       .cls-7 {
-        fill: #d1d2d4;
+        fill: [[color_7]];
         mix-blend-mode: multiply;
       }
 
       .cls-8 {
-        fill: #332d1b;
+        fill: [[color_8]];
         mix-blend-mode: screen;
       }
     </style>

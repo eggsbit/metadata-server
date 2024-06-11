@@ -3,7 +3,7 @@
   <defs>
     <style>
       .cls-1 {
-        fill: #1e122b;
+        fill: [[color_1]];
       }
 
       .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9, .cls-10, .cls-11, .cls-12, .cls-13, .cls-14, .cls-15, .cls-16 {
@@ -15,43 +15,43 @@
       }
 
       .cls-3 {
-        fill: #b58250;
+        fill: [[color_2]];
       }
 
       .cls-4 {
-        fill: #506e81;
+        fill: [[color_3]];
       }
 
       .cls-5 {
-        fill: #768c87;
+        fill: [[color_4]];
       }
 
       .cls-6 {
-        fill: #364562;
+        fill: [[color_5]];
       }
 
       .cls-7 {
-        fill: #ae9759;
+        fill: [[color_6]];
       }
 
       .cls-8 {
-        fill: #69322e;
+        fill: [[color_7]];
       }
 
       .cls-9 {
-        fill: #7a784b;
+        fill: [[color_8]];
       }
 
       .cls-10 {
-        fill: #fce2a1;
+        fill: [[color_9]];
       }
 
       .cls-11 {
-        fill: #7d6d41;
+        fill: [[color_10]];
       }
 
       .cls-12 {
-        fill: #3c6f61;
+        fill: [[color_11]];
       }
 
       .cls-17 {
@@ -59,20 +59,20 @@
       }
 
       .cls-13 {
-        fill: #d1d2d4;
+        fill: [[color_12]];
         mix-blend-mode: multiply;
       }
 
       .cls-14 {
-        fill: #fff;
+        fill: [[color_13]];
       }
 
       .cls-15 {
-        fill: #8d3e51;
+        fill: [[color_14]];
       }
 
       .cls-16 {
-        fill: #332d1b;
+        fill: [[color_15]];
         mix-blend-mode: screen;
       }
     </style>

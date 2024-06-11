@@ -13,25 +13,25 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func NewEggImagePatternDocRepository(
+func NewImagePatternDocRepository(
 	mongodb mongodb.MongodbInterface,
 	logger log.LoggerInterface,
 	config *configs.Config,
-) rep_interface.EggImagePatternDocRepositoryInterface {
-	collection := mongodb.GetClient().Database(config.MongodbConfig.DatabaseName).Collection("egg_image_pattern")
-	return &EggImagePatternDocRepository{mongodb: mongodb, collection: collection, logger: logger}
+) rep_interface.ImagePatternDocRepositoryInterface {
+	collection := mongodb.GetClient().Database(config.MongodbConfig.DatabaseName).Collection("image_pattern")
+	return &ImagePatternDocRepository{mongodb: mongodb, collection: collection, logger: logger}
 }
 
-type EggImagePatternDocRepository struct {
+type ImagePatternDocRepository struct {
 	mongodb    mongodb.MongodbInterface
 	collection *mongo.Collection
 	logger     log.LoggerInterface
 }
 
-func (eipdr *EggImagePatternDocRepository) GetImagePatternByIdentifier(identifier string, ctx context.Context) (*entity.EggImagePattern, error) {
+func (eipdr *ImagePatternDocRepository) GetImagePatternByIdentifier(identifier string, ctx context.Context) (*entity.ImagePattern, error) {
 	filter := bson.D{primitive.E{Key: "identifier", Value: identifier}}
 
-	var appEggImagePattern *entity.EggImagePattern
+	var appEggImagePattern *entity.ImagePattern
 
 	err := eipdr.collection.FindOne(ctx, filter).Decode(&appEggImagePattern)
 	if err != nil && err == mongo.ErrNoDocuments {

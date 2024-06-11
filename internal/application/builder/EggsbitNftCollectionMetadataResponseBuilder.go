@@ -10,13 +10,13 @@ func NewEggsbitNftCollectionMetadataResponseBuilder() EggsbitNftCollectionMetada
 }
 
 type EggsbitNftCollectionMetadataResponseBuilderInterface interface {
-	BuildResponse(entity entity.EggsbitNftCollection) response.CollectionMetadataWebResponse
+	BuildResponse(entity entity.NftCollection) response.CollectionMetadataWebResponse
 }
 
 type EggsbitNftCollectionMetadataResponseBuilder struct {
 }
 
-func (encmrb *EggsbitNftCollectionMetadataResponseBuilder) BuildResponse(entity entity.EggsbitNftCollection) response.CollectionMetadataWebResponse {
+func (encmrb *EggsbitNftCollectionMetadataResponseBuilder) BuildResponse(entity entity.NftCollection) response.CollectionMetadataWebResponse {
 	return response.CollectionMetadataWebResponse{
 		Name:        entity.Name,
 		Description: entity.Description,

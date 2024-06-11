@@ -33,10 +33,10 @@ type MetadataWebHandler struct {
 }
 
 func (mwh *MetadataWebHandler) HandleCollectionData(ctx *gin.Context) {
-	eggsbit_collection_identifier := "eggsbit_collection"
+	eggsbitCollectionIdentifier := "eggsbit_collection"
 	// redis check
 
-	collectionEntity, err := mwh.eggsbitNftMetadataService.GetCollectionByIdentifier(eggsbit_collection_identifier, ctx)
+	collectionEntity, err := mwh.eggsbitNftMetadataService.GetCollectionByIdentifier(eggsbitCollectionIdentifier, ctx)
 	if err != nil {
 		ctx.Status(http.StatusNotFound)
 		return
@@ -54,7 +54,8 @@ func (mwh *MetadataWebHandler) HandleItemData(ctx *gin.Context) {
 	}
 
 	// redis check
-	itemEntity, err := mwh.eggsbitNftMetadataService.GetNftItemByIndex(*index, ctx)
+	eggsbitCollectionIdentifier := "eggsbit_collection"
+	itemEntity, err := mwh.eggsbitNftMetadataService.GetNftItemByIndex(*index, eggsbitCollectionIdentifier, ctx)
 	if err != nil {
 		ctx.Status(http.StatusNotFound)
 		return

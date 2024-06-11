@@ -27,7 +27,7 @@ func NewNftItemBuilder(
 }
 
 type NftItemBuilderInterface interface {
-	BuildStartEggByIndex(index string, ctx context.Context) (entity.EggsbitNftItem, string)
+	BuildStartEggByIndex(index string, ctx context.Context) (entity.NftItem, string)
 }
 
 type NftItemBuilder struct {
@@ -36,12 +36,12 @@ type NftItemBuilder struct {
 	config                  *configs.Config
 }
 
-func (nib NftItemBuilder) BuildStartEggByIndex(index string, ctx context.Context) (entity.EggsbitNftItem, string) {
-	var attributesArray []entity.EggsbitNftItemAttribute
+func (nib NftItemBuilder) BuildStartEggByIndex(index string, ctx context.Context) (entity.NftItem, string) {
+	var attributesArray []entity.NftItemAttribute
 	attributesArray = nib.getStartEggAttributes("root", attributesArray, ctx)
 	nftImageUrl, imageUuid := nib.getNftImageUrl()
 
-	return entity.EggsbitNftItem{
+	return entity.NftItem{
 		Index:                index,
 		CollectionIdentifier: "eggsbit_collection",
 		Name:                 fmt.Sprintf("EggsBit #%s", index),
@@ -52,13 +52,13 @@ func (nib NftItemBuilder) BuildStartEggByIndex(index string, ctx context.Context
 	}, imageUuid
 }
 
-func (nib NftItemBuilder) getStartEggAttributes(identifier string, attributesArray []entity.EggsbitNftItemAttribute, ctx context.Context) []entity.EggsbitNftItemAttribute {
+func (nib NftItemBuilder) getStartEggAttributes(identifier string, attributesArray []entity.NftItemAttribute, ctx context.Context) []entity.NftItemAttribute {
 	keyNodes, _ := nib.attributeRuleRepository.GetRulesByParentIdentifier(identifier, "key", ctx)
 
 	for _, keyNode := range keyNodes {
 		valueNodes, _ := nib.attributeRuleRepository.GetRulesByParentIdentifier(keyNode.Identifier, "value", ctx)
 		if len(valueNodes) == 0 {
-			itemAttribute := entity.EggsbitNftItemAttribute{
+			itemAttribute := entity.NftItemAttribute{
 				TraitType: *keyNode.Key,
 				Value:     nil,
 			}
@@ -74,7 +74,7 @@ func (nib NftItemBuilder) getStartEggAttributes(identifier string, attributesArr
 	return attributesArray
 }
 
-func (nib NftItemBuilder) getRandomAttributeByProbability(keyNode string, valueNodes []*entity.EggsbitNftItemAttributeRule) (entity.EggsbitNftItemAttribute, string) {
+func (nib NftItemBuilder) getRandomAttributeByProbability(keyNode string, valueNodes []*entity.EggsbitNftItemAttributeRule) (entity.NftItemAttribute, string) {
 	source := rand.NewSource(time.Now().UnixNano() + int64(len(valueNodes)))
 	rng := rand.New(source)
 	r := rng.Float64()
@@ -96,7 +96,7 @@ func (nib NftItemBuilder) getRandomAttributeByProbability(keyNode string, valueN
 		}
 	}
 
-	return entity.EggsbitNftItemAttribute{
+	return entity.NftItemAttribute{
 		TraitType: keyNode, Value: randomResult.Value,
 	}, randomResult.Identifier
 }

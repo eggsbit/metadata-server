@@ -1,6 +1,6 @@
 package entity
 
-type EggsbitNftCollection struct {
+type NftCollection struct {
 	Identifier  string   `bson:"identifier"`
 	Name        string   `bson:"name"`
 	Description string   `bson:"description"`

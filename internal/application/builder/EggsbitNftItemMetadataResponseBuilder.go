@@ -12,13 +12,13 @@ func NewEggsbitNftItemMetadataResponseBuilder() EggsbitNftItemMetadataResponseBu
 }
 
 type EggsbitNftItemMetadataResponseBuilderInterface interface {
-	BuildResponse(entity entity.EggsbitNftItem) response.ItemMetadataWebResponse
+	BuildResponse(entity entity.NftItem) response.ItemMetadataWebResponse
 }
 
 type EggsbitNftItemMetadataResponseBuilder struct {
 }
 
-func (enimrb *EggsbitNftItemMetadataResponseBuilder) BuildResponse(entity entity.EggsbitNftItem) response.ItemMetadataWebResponse {
+func (enimrb *EggsbitNftItemMetadataResponseBuilder) BuildResponse(entity entity.NftItem) response.ItemMetadataWebResponse {
 	attributes := []response.ItemAttributeWebResponse{}
 	copier.Copy(&attributes, &entity.Attributes)
 

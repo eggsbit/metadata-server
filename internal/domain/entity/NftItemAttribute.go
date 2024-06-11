@@ -1,6 +1,6 @@
 package entity
 
-type EggsbitNftItemAttribute struct {
+type NftItemAttribute struct {
 	TraitType string  `bson:"trait_type"`
 	Value     *string `bson:"value"`
 }

@@ -13,27 +13,27 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func NewEggsbitNftItemDocRepository(
+func NewNftItemDocRepository(
 	mongodb mongodb.MongodbInterface,
 	logger log.LoggerInterface,
 	config *configs.Config,
-) rep_interface.EggsbitNftItemDocRepositoryInterface {
+) rep_interface.NftItemDocRepositoryInterface {
 	collection := mongodb.GetClient().Database(config.MongodbConfig.DatabaseName).Collection("nft_item")
-	return &EggsbitNftItemDocRepository{mongodb: mongodb, collection: collection, logger: logger}
+	return &NftItemDocRepository{mongodb: mongodb, collection: collection, logger: logger}
 }
 
-type EggsbitNftItemDocRepository struct {
+type NftItemDocRepository struct {
 	mongodb    mongodb.MongodbInterface
 	collection *mongo.Collection
 	logger     log.LoggerInterface
 }
 
-func (enidr *EggsbitNftItemDocRepository) GetItemByIndex(index string, ctx context.Context) (*entity.EggsbitNftItem, error) {
-	filter := bson.D{primitive.E{Key: "index", Value: index}}
+func (nidr *NftItemDocRepository) GetItemByIndex(index string, collectionIdentifier string, ctx context.Context) (*entity.NftItem, error) {
+	filter := bson.D{primitive.E{Key: "index", Value: index}, primitive.E{Key: "collection_identifier", Value: collectionIdentifier}}
 
-	var appNftItem *entity.EggsbitNftItem
+	var appNftItem *entity.NftItem
 
-	err := enidr.collection.FindOne(ctx, filter).Decode(&appNftItem)
+	err := nidr.collection.FindOne(ctx, filter).Decode(&appNftItem)
 	if err != nil && err == mongo.ErrNoDocuments {
 		return nil, err
 	}
@@ -41,8 +41,8 @@ func (enidr *EggsbitNftItemDocRepository) GetItemByIndex(index string, ctx conte
 	return appNftItem, nil
 }
 
-func (enidr *EggsbitNftItemDocRepository) Add(eggsbitNftItem entity.EggsbitNftItem, ctx context.Context) error {
-	insertResult, err := enidr.collection.InsertOne(ctx, eggsbitNftItem)
+func (nidr *NftItemDocRepository) Add(nftItem entity.NftItem, ctx context.Context) error {
+	insertResult, err := nidr.collection.InsertOne(ctx, nftItem)
 
 	if err != mongo.ErrNilCursor {
 		return err

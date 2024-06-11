@@ -1,6 +1,6 @@
 package entity
 
-type EggImagePattern struct {
+type ImagePattern struct {
 	Identifier string `bson:"identifier"`
 	Path       string `bson:"path"`
 }

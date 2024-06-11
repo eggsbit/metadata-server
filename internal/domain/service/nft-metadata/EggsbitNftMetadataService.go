@@ -12,47 +12,47 @@ import (
 )
 
 func NewEggsbitNftMetadataService(
-	eggsbitNftCollectionRepository repository.EggsbitNftCollectionDocRepositoryInterface,
-	eggsbitNftItemRepository repository.EggsbitNftItemDocRepositoryInterface,
+	nftCollectionRepository repository.NftCollectionDocRepositoryInterface,
+	nftItemRepository repository.NftItemDocRepositoryInterface,
 	nftItemBuilder eggsbitnftdata.NftItemBuilderInterface,
 	imageFileBuilder eggsbitnftdata.ImageFileBuilderInterface,
 	logger log.LoggerInterface,
 	config *configs.Config,
 ) EggsbitNftMetadataServiceInterface {
 	return &EggsbitNftMetadataService{
-		eggsbitNftCollectionRepository: eggsbitNftCollectionRepository,
-		eggsbitNftItemRepository:       eggsbitNftItemRepository,
-		nftItemBuilder:                 nftItemBuilder,
-		imageFileBuilder:               imageFileBuilder,
-		logger:                         logger,
-		config:                         config,
+		nftCollectionRepository: nftCollectionRepository,
+		nftItemRepository:       nftItemRepository,
+		nftItemBuilder:          nftItemBuilder,
+		imageFileBuilder:        imageFileBuilder,
+		logger:                  logger,
+		config:                  config,
 	}
 }
 
 type EggsbitNftMetadataServiceInterface interface {
-	GetCollectionByIdentifier(indentifier string, ctx context.Context) (*entity.EggsbitNftCollection, error)
+	GetCollectionByIdentifier(indentifier string, ctx context.Context) (*entity.NftCollection, error)
 
-	GetNftItemByIndex(index string, ctx context.Context) (*entity.EggsbitNftItem, error)
+	GetNftItemByIndex(index string, collectionIndentifier string, ctx context.Context) (*entity.NftItem, error)
 }
 
 type EggsbitNftMetadataService struct {
-	eggsbitNftCollectionRepository repository.EggsbitNftCollectionDocRepositoryInterface
-	eggsbitNftItemRepository       repository.EggsbitNftItemDocRepositoryInterface
-	nftItemBuilder                 eggsbitnftdata.NftItemBuilderInterface
-	imageFileBuilder               eggsbitnftdata.ImageFileBuilderInterface
-	logger                         log.LoggerInterface
-	config                         *configs.Config
+	nftCollectionRepository repository.NftCollectionDocRepositoryInterface
+	nftItemRepository       repository.NftItemDocRepositoryInterface
+	nftItemBuilder          eggsbitnftdata.NftItemBuilderInterface
+	imageFileBuilder        eggsbitnftdata.ImageFileBuilderInterface
+	logger                  log.LoggerInterface
+	config                  *configs.Config
 }
 
-func (enms *EggsbitNftMetadataService) GetCollectionByIdentifier(indentifier string, ctx context.Context) (*entity.EggsbitNftCollection, error) {
+func (enms *EggsbitNftMetadataService) GetCollectionByIdentifier(indentifier string, ctx context.Context) (*entity.NftCollection, error) {
 	// check dbs
 	// return
-	entity, err := enms.eggsbitNftCollectionRepository.GetCollectionByIdentifier(indentifier, ctx)
+	entity, err := enms.nftCollectionRepository.GetCollectionByIdentifier(indentifier, ctx)
 	return entity, err
 }
 
-func (enms *EggsbitNftMetadataService) GetNftItemByIndex(index string, ctx context.Context) (*entity.EggsbitNftItem, error) {
-	itemEntity, err := enms.eggsbitNftItemRepository.GetItemByIndex(index, ctx)
+func (enms *EggsbitNftMetadataService) GetNftItemByIndex(index string, collectionIndentifier string, ctx context.Context) (*entity.NftItem, error) {
+	itemEntity, err := enms.nftItemRepository.GetItemByIndex(index, collectionIndentifier, ctx)
 	if err == nil {
 		return itemEntity, err
 	}
@@ -64,11 +64,11 @@ func (enms *EggsbitNftMetadataService) GetNftItemByIndex(index string, ctx conte
 		enms.logger.Error(log.LogCategoryLogic, createImageErr.Error())
 	}
 
-	enms.eggsbitNftItemRepository.Add(eggsbitNftItem, ctx)
+	enms.nftItemRepository.Add(eggsbitNftItem, ctx)
 	return &eggsbitNftItem, nil
 }
 
-func (enms *EggsbitNftMetadataService) createStartingEggImage(imageUuid string, eggsbitNftItem entity.EggsbitNftItem) error {
+func (enms *EggsbitNftMetadataService) createStartingEggImage(imageUuid string, eggsbitNftItem entity.NftItem) error {
 	var eggPattern string
 	var eggColorScheme string
 

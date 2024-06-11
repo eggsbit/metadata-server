@@ -13,27 +13,27 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func NewEggsbitNftCollectionDocRepository(
+func NewNftCollectionDocRepository(
 	mongodb mongodb.MongodbInterface,
 	logger log.LoggerInterface,
 	config *configs.Config,
-) rep_interface.EggsbitNftCollectionDocRepositoryInterface {
+) rep_interface.NftCollectionDocRepositoryInterface {
 	collection := mongodb.GetClient().Database(config.MongodbConfig.DatabaseName).Collection("nft_collection")
-	return &EggsbitNftCollectionDocRepository{mongodb: mongodb, collection: collection, logger: logger}
+	return &NftCollectionDocRepository{mongodb: mongodb, collection: collection, logger: logger}
 }
 
-type EggsbitNftCollectionDocRepository struct {
+type NftCollectionDocRepository struct {
 	mongodb    mongodb.MongodbInterface
 	collection *mongo.Collection
 	logger     log.LoggerInterface
 }
 
-func (encdr *EggsbitNftCollectionDocRepository) GetCollectionByIdentifier(identifier string, ctx context.Context) (*entity.EggsbitNftCollection, error) {
+func (ncdr *NftCollectionDocRepository) GetCollectionByIdentifier(identifier string, ctx context.Context) (*entity.NftCollection, error) {
 	filter := bson.D{primitive.E{Key: "identifier", Value: identifier}}
 
-	var appNftCollection *entity.EggsbitNftCollection
+	var appNftCollection *entity.NftCollection
 
-	err := encdr.collection.FindOne(ctx, filter).Decode(&appNftCollection)
+	err := ncdr.collection.FindOne(ctx, filter).Decode(&appNftCollection)
 	if err != nil && err == mongo.ErrNoDocuments {
 		return nil, err
 	}

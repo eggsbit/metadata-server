@@ -1,0 +1,67 @@
+[{
+  "_id": {
+    "$oid": "66658f0ae4c51049510f8011"
+  },
+  "identifier": "pattern_1",
+  "path": "/static/image/egg_patterns/pattern_1.svg"
+},{
+  "_id": {
+    "$oid": "66658f4ae4c51049510f8012"
+  },
+  "identifier": "pattern_2",
+  "path": "/static/image/egg_patterns/pattern_2.svg"
+},{
+  "_id": {
+    "$oid": "66658f6de4c51049510f8014"
+  },
+  "identifier": "pattern_3",
+  "path": "/static/image/egg_patterns/pattern_3.svg"
+},{
+  "_id": {
+    "$oid": "66658f74e4c51049510f8015"
+  },
+  "identifier": "pattern_4",
+  "path": "/static/image/egg_patterns/pattern_4.svg"
+},{
+  "_id": {
+    "$oid": "66658f7ae4c51049510f8016"
+  },
+  "identifier": "pattern_5",
+  "path": "/static/image/egg_patterns/pattern_5.svg"
+},{
+  "_id": {
+    "$oid": "66658f7fe4c51049510f8017"
+  },
+  "identifier": "pattern_6",
+  "path": "/static/image/egg_patterns/pattern_6.svg"
+},{
+  "_id": {
+    "$oid": "66658f86e4c51049510f8018"
+  },
+  "identifier": "pattern_7",
+  "path": "/static/image/egg_patterns/pattern_7.svg"
+},{
+  "_id": {
+    "$oid": "66658f8de4c51049510f8019"
+  },
+  "identifier": "pattern_8",
+  "path": "/static/image/egg_patterns/pattern_8.svg"
+},{
+  "_id": {
+    "$oid": "66658f93e4c51049510f801a"
+  },
+  "identifier": "pattern_9",
+  "path": "/static/image/egg_patterns/pattern_9.svg"
+},{
+  "_id": {
+    "$oid": "66658f9ae4c51049510f801b"
+  },
+  "identifier": "pattern_10",
+  "path": "/static/image/egg_patterns/pattern_10.svg"
+},{
+  "_id": {
+    "$oid": "66658fa1e4c51049510f801c"
+  },
+  "identifier": "pattern_11",
+  "path": "/static/image/egg_patterns/pattern_11.svg"
+}]

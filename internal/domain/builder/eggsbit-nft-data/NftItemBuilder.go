@@ -27,7 +27,7 @@ func NewNftItemBuilder(
 }
 
 type NftItemBuilderInterface interface {
-	BuildStartEggByIndex(index string, ctx context.Context) entity.EggsbitNftItem
+	BuildStartEggByIndex(index string, ctx context.Context) (entity.EggsbitNftItem, string)
 }
 
 type NftItemBuilder struct {
@@ -36,10 +36,10 @@ type NftItemBuilder struct {
 	config                  *configs.Config
 }
 
-func (nib NftItemBuilder) BuildStartEggByIndex(index string, ctx context.Context) entity.EggsbitNftItem {
+func (nib NftItemBuilder) BuildStartEggByIndex(index string, ctx context.Context) (entity.EggsbitNftItem, string) {
 	var attributesArray []entity.EggsbitNftItemAttribute
 	attributesArray = nib.getStartEggAttributes("root", attributesArray, ctx)
-	nftImageUrl := nib.getNftImageUrl()
+	nftImageUrl, imageUuid := nib.getNftImageUrl()
 
 	return entity.EggsbitNftItem{
 		Index:                index,
@@ -49,7 +49,7 @@ func (nib NftItemBuilder) BuildStartEggByIndex(index string, ctx context.Context
 		Image:                &nftImageUrl,
 		Lottie:               nil,
 		Attributes:           attributesArray,
-	}
+	}, imageUuid
 }
 
 func (nib NftItemBuilder) getStartEggAttributes(identifier string, attributesArray []entity.EggsbitNftItemAttribute, ctx context.Context) []entity.EggsbitNftItemAttribute {
@@ -101,8 +101,8 @@ func (nib NftItemBuilder) getRandomAttributeByProbability(keyNode string, valueN
 	}, randomResult.Identifier
 }
 
-func (nib NftItemBuilder) getNftImageUrl() string {
+func (nib NftItemBuilder) getNftImageUrl() (string, string) {
 	uuidId := uuid.NewString()
 	baseUrl := nib.config.ApplicationConfig.NftItemImageBaseUrl
-	return baseUrl + uuidId + ".png"
+	return baseUrl + uuidId + ".png", uuidId
 }

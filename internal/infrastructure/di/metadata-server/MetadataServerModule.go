@@ -37,6 +37,8 @@ func (msm MetadataServerModule) BuildOptions(config *configs.Config) fx.Option {
 			repository.NewEggsbitNftCollectionDocRepository,
 			repository.NewEggsbitNftItemDocRepository,
 			repository.NewEggsbitNftItemAttributeRulesDocRepository,
+			repository.NewColorSchemeDocRepository,
+			repository.NewEggImagePatternDocRepository,
 			nftmetadata.NewEggsbitNftMetadataService,
 			builder.NewEggsbitNftCollectionMetadataResponseBuilder,
 			builder.NewEggsbitNftItemMetadataResponseBuilder,

@@ -1,9 +1,10 @@
 package constant
 
 const (
-	KeyAttributeFather      = "Father"
-	KeyAttributeMother      = "Mother"
-	KeyAttributeStatus      = "Status"
-	KeyAttributePattern     = "Pattern"
-	KeyAttributeColorSchema = "Color Schema"
+	KeyAttributeFather      = "father"
+	KeyAttributeMother      = "mother"
+	KeyAttributeRarity      = "rarity"
+	KeyAttributeStatus      = "status"
+	KeyAttributePattern     = "egg_pattern"
+	KeyAttributeColorSchema = "color_scheme"
 )

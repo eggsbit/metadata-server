@@ -1,0 +1,14 @@
+[{
+  "_id": {
+    "$oid": "666322b3e4c51049510f7fd1"
+  },
+  "cover_image": "https://www.shadygrovefertility.com/wp-content/uploads/2023/07/Egg-supply-blog.png",
+  "description": "Collection of web3.0 eggsbit game",
+  "image": "https://static01.nyt.com/images/2022/08/26/dining/kc-sunny-side-up-eggs/kc-sunny-side-up-eggs-square640.jpg",
+  "name": "Eggsbit Collection",
+  "social_links": [
+    "https://eggsbit.io/",
+    "https://t.me/eggs"
+  ],
+  "identifier": "eggsbit_collection"
+}]

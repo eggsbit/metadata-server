@@ -2,8 +2,9 @@ package eggsbitnftdata
 
 import (
 	"context"
-	"errors"
 	"os"
+	"os/exec"
+	"regexp"
 	"strings"
 
 	"github.com/eggsbit/metadata-server/configs"
@@ -36,35 +37,51 @@ type ImageFileBuilder struct {
 	config                 *configs.Config
 }
 
-func (ifb ImageFileBuilder) CreateStartingEggImage(imageUuid string, eggPattern string, eggColorScheme string, ctx context.Context) error {
-	imagePattern, _ := ifb.imagePatternRepository.GetImagePatternByIdentifier(eggPattern, ctx)
-	colorScheme, _ := ifb.colorSchemeRepository.GetColorSchemeByIdentifier(eggColorScheme, ctx)
+func (ifb ImageFileBuilder) CreateStartingEggImage(
+	imageUuid string,
+	eggPatternIdentifier string,
+	eggColorSchemeIdentifier string,
+	ctx context.Context,
+) error {
+	imagePattern, _ := ifb.imagePatternRepository.GetImagePatternByIdentifier(eggPatternIdentifier, ctx)
+	colorScheme, _ := ifb.colorSchemeRepository.GetColorSchemeByIdentifier(eggColorSchemeIdentifier, ctx)
 
-	inputPatternFile, err := os.ReadFile(imagePattern.Path)
-	if err != nil {
-		ifb.logger.Error(log.LogCategorySystem, err.Error())
+	inputPatternFile, errReadFile := os.ReadFile(imagePattern.Path)
+	if errReadFile != nil {
+		return errReadFile
 	}
 
 	lines := strings.Split(string(inputPatternFile), "\n")
-	for i, line := range lines {
-		//берем строку и ищем в ней паттерн \[\[(color_\d+)\]\]
-		//если нашелся то вычленяем его и используем в качестве ключа для того чтобы взять цвет из colorScheme.colors
-		//подставляем вместо найденого ранее значения цвет и идем дальше
-		// if strings.Contains(line, "]") {
-		// 		lines[i] = "LOL"
-		// }
+	findSubstringRegexp := regexp.MustCompile(`\[\[(color_\d+)\]\]`)
+	for lineIndex, line := range lines {
+		match := findSubstringRegexp.FindStringSubmatch(line)
+
+		if len(match) == 0 {
+			continue
+		}
+
+		colorKey := match[1]
+		replaceSubstringRegexp := regexp.MustCompile(`(\[\[` + colorKey + `\]\])`)
+		lines[lineIndex] = replaceSubstringRegexp.ReplaceAllString(line, colorScheme.Colors[colorKey])
 	}
 	output := strings.Join(lines, "\n")
-	err = os.WriteFile("myfile", []byte(output), 0644)
+	filePathSvg := ifb.config.ApplicationConfig.ExportFolderPath + imageUuid + ".svg"
+	errWriteFile := os.WriteFile(filePathSvg, []byte(output), 0644)
 
-	if err != nil {
-		ifb.logger.Error(log.LogCategorySystem, err.Error())
+	if errWriteFile != nil {
+		return errWriteFile
 	}
 
-	// get file
-	// replace some lines - https://stackoverflow.com/questions/26152901/replace-a-line-in-text-file-golang
-	// export to the folder from config path - tmp
-	// export to real folder by inskape
+	filePathPng := ifb.config.ApplicationConfig.ExportFolderPath + imageUuid + ".png"
+	inkscapeCmd := exec.Command("inkscape", "--export-type=png", "--export-dpi=300", "--export-filename="+filePathPng, filePathSvg)
+	if inkscapeErr := inkscapeCmd.Run(); inkscapeErr != nil {
+		return inkscapeErr
+	}
 
-	return errors.New("create random starting egg image error")
+	rmSvgCmd := exec.Command("rm", "-f", filePathSvg)
+	if rmSvgErr := rmSvgCmd.Run(); rmSvgErr != nil {
+		ifb.logger.Error(log.LogCategorySystem, rmSvgErr.Error())
+	}
+
+	return nil
 }

@@ -32,6 +32,7 @@ type Config struct {
 	}
 	ApplicationConfig struct {
 		NftItemImageBaseUrl string
+		ExportFolderPath    string
 	}
 }
 
@@ -97,4 +98,5 @@ func (c *Config) loadMetadataServerConfiguration() {
 
 func (c *Config) loadApplicationConfiguration() {
 	c.ApplicationConfig.NftItemImageBaseUrl = os.Getenv("NFT_ITEM_IMAGE_BASE_URL")
+	c.ApplicationConfig.ExportFolderPath = os.Getenv("EXPORT_FOLDER_PATH")
 }

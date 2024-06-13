@@ -6,10 +6,11 @@ import (
 )
 
 const (
-	LogCategoryDefault = "default"
-	LogCategorySystem  = "application.system"
-	LogCategoryLogic   = "application.logic"
-	LogCategoryDebug   = "application.debug"
+	LogCategoryDefault   = "default"
+	LogCategorySystem    = "application.system"
+	LogCategoryLogic     = "application.logic"
+	LogCategoryDebug     = "application.debug"
+	LogCategoryInputData = "application.input_data"
 )
 
 func NewLogger() LoggerInterface {

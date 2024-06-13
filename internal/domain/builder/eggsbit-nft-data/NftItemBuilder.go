@@ -3,6 +3,7 @@ package eggsbitnftdata
 import (
 	"context"
 	"fmt"
+	"math/big"
 	"math/rand"
 	"time"
 
@@ -27,7 +28,7 @@ func NewNftItemBuilder(
 }
 
 type NftItemBuilderInterface interface {
-	BuildStartEggByIndex(index string, ctx context.Context) (entity.NftItem, string)
+	BuildStartEggByIndex(index *big.Int, ctx context.Context) (entity.NftItem, string)
 }
 
 type NftItemBuilder struct {
@@ -36,13 +37,13 @@ type NftItemBuilder struct {
 	config                  *configs.Config
 }
 
-func (nib NftItemBuilder) BuildStartEggByIndex(index string, ctx context.Context) (entity.NftItem, string) {
+func (nib NftItemBuilder) BuildStartEggByIndex(index *big.Int, ctx context.Context) (entity.NftItem, string) {
 	var attributesArray []entity.NftItemAttribute
 	attributesArray = nib.getStartEggAttributes("root", attributesArray, ctx)
 	nftImageUrl, imageUuid := nib.getNftImageUrl()
 
 	return entity.NftItem{
-		Index:                index,
+		Index:                index.String(),
 		CollectionIdentifier: "eggsbit_collection",
 		Name:                 fmt.Sprintf("EggsBit #%s", index),
 		Description:          "This special egg from the EggsBit collection will hatch into a unique pet in the future game. Adopt, care for, and watch your pet grow!",

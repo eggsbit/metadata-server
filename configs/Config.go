@@ -31,8 +31,11 @@ type Config struct {
 		Port string
 	}
 	ApplicationConfig struct {
-		NftItemImageBaseUrl string
-		ExportFolderPath    string
+		NftItemImageBaseUrl    string
+		ExportFolderPath       string
+		DeployWalletAddress    string
+		NftCollectionAddress   string
+		TonBlockchainConfigUrl string
 	}
 }
 
@@ -99,4 +102,7 @@ func (c *Config) loadMetadataServerConfiguration() {
 func (c *Config) loadApplicationConfiguration() {
 	c.ApplicationConfig.NftItemImageBaseUrl = os.Getenv("NFT_ITEM_IMAGE_BASE_URL")
 	c.ApplicationConfig.ExportFolderPath = os.Getenv("EXPORT_FOLDER_PATH")
+	c.ApplicationConfig.DeployWalletAddress = os.Getenv("DEPLOY_WALLET_ADDRESS")
+	c.ApplicationConfig.NftCollectionAddress = os.Getenv("NFT_COLLECTION_ADDRESS")
+	c.ApplicationConfig.TonBlockchainConfigUrl = os.Getenv("TON_BLOCKCHAIN_CONFIG_URL")
 }

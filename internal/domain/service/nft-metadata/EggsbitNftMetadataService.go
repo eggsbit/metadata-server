@@ -2,12 +2,15 @@ package nftmetadata
 
 import (
 	"context"
+	"errors"
+	"math/big"
 
 	"github.com/eggsbit/metadata-server/configs"
 	eggsbitnftdata "github.com/eggsbit/metadata-server/internal/domain/builder/eggsbit-nft-data"
 	"github.com/eggsbit/metadata-server/internal/domain/constant"
 	"github.com/eggsbit/metadata-server/internal/domain/entity"
 	"github.com/eggsbit/metadata-server/internal/domain/repository"
+	"github.com/eggsbit/metadata-server/internal/domain/service/blockchain"
 	log "github.com/eggsbit/metadata-server/internal/infrastructure/logger"
 )
 
@@ -16,6 +19,7 @@ func NewEggsbitNftMetadataService(
 	nftItemRepository repository.NftItemDocRepositoryInterface,
 	nftItemBuilder eggsbitnftdata.NftItemBuilderInterface,
 	imageFileBuilder eggsbitnftdata.ImageFileBuilderInterface,
+	tonBlockchainService blockchain.TonBlockchainServiceInterface,
 	logger log.LoggerInterface,
 	config *configs.Config,
 ) EggsbitNftMetadataServiceInterface {
@@ -24,6 +28,7 @@ func NewEggsbitNftMetadataService(
 		nftItemRepository:       nftItemRepository,
 		nftItemBuilder:          nftItemBuilder,
 		imageFileBuilder:        imageFileBuilder,
+		tonBlockchainService:    tonBlockchainService,
 		logger:                  logger,
 		config:                  config,
 	}
@@ -32,7 +37,7 @@ func NewEggsbitNftMetadataService(
 type EggsbitNftMetadataServiceInterface interface {
 	GetCollectionByIdentifier(indentifier string, ctx context.Context) (*entity.NftCollection, error)
 
-	GetNftItemByIndex(index string, collectionIndentifier string, ctx context.Context) (*entity.NftItem, error)
+	GetNftItemByIndex(index *big.Int, collectionIndentifier string, ctx context.Context) (*entity.NftItem, error)
 }
 
 type EggsbitNftMetadataService struct {
@@ -40,24 +45,33 @@ type EggsbitNftMetadataService struct {
 	nftItemRepository       repository.NftItemDocRepositoryInterface
 	nftItemBuilder          eggsbitnftdata.NftItemBuilderInterface
 	imageFileBuilder        eggsbitnftdata.ImageFileBuilderInterface
+	tonBlockchainService    blockchain.TonBlockchainServiceInterface
 	logger                  log.LoggerInterface
 	config                  *configs.Config
 }
 
 func (enms *EggsbitNftMetadataService) GetCollectionByIdentifier(indentifier string, ctx context.Context) (*entity.NftCollection, error) {
-	// check dbs
-	// return
 	entity, err := enms.nftCollectionRepository.GetCollectionByIdentifier(indentifier, ctx)
 	return entity, err
 }
 
-func (enms *EggsbitNftMetadataService) GetNftItemByIndex(index string, collectionIndentifier string, ctx context.Context) (*entity.NftItem, error) {
-	itemEntity, err := enms.nftItemRepository.GetItemByIndex(index, collectionIndentifier, ctx)
+func (enms *EggsbitNftMetadataService) GetNftItemByIndex(index *big.Int, collectionIndentifier string, ctx context.Context) (*entity.NftItem, error) {
+	itemEntity, err := enms.nftItemRepository.GetItemByIndex(index.String(), collectionIndentifier, ctx)
 	if err == nil {
 		return itemEntity, err
 	}
 
-	// check ton chain collection index
+	collectionNextItemIndex, nextItemIndexErr := enms.tonBlockchainService.GetCollectionNextItemIndex()
+	if nextItemIndexErr != nil {
+		enms.logger.Error(log.LogCategorySystem, nextItemIndexErr.Error())
+		return nil, nextItemIndexErr
+	}
+
+	if collectionNextItemIndex.Cmp(index) == -1 || collectionNextItemIndex.Cmp(index) == 0 {
+		indexString := index.String()
+		return nil, errors.New("index (#" + indexString + ") collection item doesn't exist")
+	}
+
 	eggsbitNftItem, imageUuid := enms.nftItemBuilder.BuildStartEggByIndex(index, ctx)
 	createImageErr := enms.createStartingEggImage(imageUuid, eggsbitNftItem, ctx)
 	if createImageErr != nil {

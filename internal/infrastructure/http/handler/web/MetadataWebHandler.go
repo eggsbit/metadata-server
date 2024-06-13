@@ -2,6 +2,7 @@ package web
 
 import (
 	"errors"
+	"math/big"
 	"net/http"
 	"regexp"
 
@@ -55,8 +56,9 @@ func (mwh *MetadataWebHandler) HandleItemData(ctx *gin.Context) {
 
 	// redis check
 	eggsbitCollectionIdentifier := "eggsbit_collection"
-	itemEntity, err := mwh.eggsbitNftMetadataService.GetNftItemByIndex(*index, eggsbitCollectionIdentifier, ctx)
+	itemEntity, err := mwh.eggsbitNftMetadataService.GetNftItemByIndex(index, eggsbitCollectionIdentifier, ctx)
 	if err != nil {
+		mwh.logger.Error(log.LogCategoryLogic, err.Error())
 		ctx.Status(http.StatusNotFound)
 		return
 	}
@@ -64,11 +66,19 @@ func (mwh *MetadataWebHandler) HandleItemData(ctx *gin.Context) {
 	ctx.JSONP(http.StatusOK, mwh.itemResponseBuilder.BuildResponse(*itemEntity))
 }
 
-func (mwh *MetadataWebHandler) getNftItemIndex(ctx *gin.Context) (*string, error) {
+func (mwh *MetadataWebHandler) getNftItemIndex(ctx *gin.Context) (*big.Int, error) {
 	re := regexp.MustCompile(`^item_(0|[1-9][0-9]*)\.json$`)
 	match := re.FindStringSubmatch(ctx.Param("item_slug"))
 	if len(match) > 0 {
-		return &match[1], nil
+		newBigInt := new(big.Int)
+		newBigInt, newBigIntStatus := newBigInt.SetString(match[1], 16)
+		if !newBigIntStatus {
+			newBigIntError := errors.New("nft item index from string to bigInt was failed")
+			mwh.logger.Error(log.LogCategoryInputData, newBigIntError.Error())
+			return nil, newBigIntError
+		}
+
+		return newBigInt, nil
 	} else {
 		return nil, errors.New("item slug is not correct")
 	}

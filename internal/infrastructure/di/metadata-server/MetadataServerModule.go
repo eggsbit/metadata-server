@@ -18,6 +18,7 @@ import (
 	webHandler "github.com/eggsbit/metadata-server/internal/infrastructure/http/handler/web"
 	log "github.com/eggsbit/metadata-server/internal/infrastructure/logger"
 	"github.com/eggsbit/metadata-server/internal/infrastructure/mongodb"
+	redisstore "github.com/eggsbit/metadata-server/internal/infrastructure/redis-store"
 	"github.com/eggsbit/metadata-server/internal/infrastructure/repository"
 	"go.uber.org/fx"
 )
@@ -48,6 +49,8 @@ func (msm MetadataServerModule) BuildOptions(config *configs.Config) fx.Option {
 			eggsbitnftdata.NewNftItemBuilder,
 			blockchain.NewTonBlockchainConnection,
 			blockchainService.NewTonBlockchainService,
+			redisstore.NewRedisConnection,
+			redisstore.NewRedisService,
 		),
 		fx.Invoke(
 			server.RegisterRoutes,

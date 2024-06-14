@@ -1,6 +1,7 @@
 package web
 
 import (
+	"encoding/json"
 	"errors"
 	"math/big"
 	"net/http"
@@ -8,7 +9,9 @@ import (
 
 	"github.com/eggsbit/metadata-server/internal/application/builder"
 	nftmetadata "github.com/eggsbit/metadata-server/internal/domain/service/nft-metadata"
+	"github.com/eggsbit/metadata-server/internal/infrastructure/http/response"
 	log "github.com/eggsbit/metadata-server/internal/infrastructure/logger"
+	redisstore "github.com/eggsbit/metadata-server/internal/infrastructure/redis-store"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,12 +19,14 @@ func NewMetadataWebHandler(
 	eggsbitNftMetadataService nftmetadata.EggsbitNftMetadataServiceInterface,
 	collectionResponseBuilder builder.EggsbitNftCollectionMetadataResponseBuilderInterface,
 	itemResponseBuilder builder.EggsbitNftItemMetadataResponseBuilderInterface,
+	redisService redisstore.RedisServiceInterface,
 	logger log.LoggerInterface,
 ) *MetadataWebHandler {
 	return &MetadataWebHandler{
 		eggsbitNftMetadataService: eggsbitNftMetadataService,
 		collectionResponseBuilder: collectionResponseBuilder,
 		itemResponseBuilder:       itemResponseBuilder,
+		redisService:              redisService,
 		logger:                    logger,
 	}
 }
@@ -30,20 +35,35 @@ type MetadataWebHandler struct {
 	eggsbitNftMetadataService nftmetadata.EggsbitNftMetadataServiceInterface
 	collectionResponseBuilder builder.EggsbitNftCollectionMetadataResponseBuilderInterface
 	itemResponseBuilder       builder.EggsbitNftItemMetadataResponseBuilderInterface
+	redisService              redisstore.RedisServiceInterface
 	logger                    log.LoggerInterface
 }
 
 func (mwh *MetadataWebHandler) HandleCollectionData(ctx *gin.Context) {
 	eggsbitCollectionIdentifier := "eggsbit_collection"
-	// redis check
 
-	collectionEntity, err := mwh.eggsbitNftMetadataService.GetCollectionByIdentifier(eggsbitCollectionIdentifier, ctx)
-	if err != nil {
+	// Get a value from redis if it exists
+	redisValue, redisGetErr := mwh.redisService.GetValue(eggsbitCollectionIdentifier, ctx)
+	if redisGetErr == nil {
+		var responseFromRedis response.CollectionMetadataWebResponse
+		jsonDecodeErr := json.Unmarshal([]byte(*redisValue), &responseFromRedis)
+		if jsonDecodeErr == nil {
+			ctx.JSON(http.StatusOK, responseFromRedis)
+			return
+		}
+	}
+
+	collectionEntity, collectionEntityErr := mwh.eggsbitNftMetadataService.GetCollectionByIdentifier(eggsbitCollectionIdentifier, ctx)
+	if collectionEntityErr != nil {
 		ctx.Status(http.StatusNotFound)
 		return
 	}
 
-	ctx.JSONP(http.StatusOK, mwh.collectionResponseBuilder.BuildResponse(*collectionEntity))
+	// Set a value to redis
+	response := mwh.collectionResponseBuilder.BuildResponse(*collectionEntity)
+	mwh.saveResponseInRedis(eggsbitCollectionIdentifier, response, ctx)
+
+	ctx.JSON(http.StatusOK, response)
 }
 
 func (mwh *MetadataWebHandler) HandleItemData(ctx *gin.Context) {
@@ -54,8 +74,20 @@ func (mwh *MetadataWebHandler) HandleItemData(ctx *gin.Context) {
 		return
 	}
 
-	// redis check
 	eggsbitCollectionIdentifier := "eggsbit_collection"
+
+	// Get a value from redis if it exists
+	itemRedisKey := eggsbitCollectionIdentifier + "_item_" + index.String()
+	redisValue, redisGetErr := mwh.redisService.GetValue(itemRedisKey, ctx)
+	if redisGetErr == nil {
+		var responseFromRedis response.ItemMetadataWebResponse
+		jsonDecodeErr := json.Unmarshal([]byte(*redisValue), &responseFromRedis)
+		if jsonDecodeErr == nil {
+			ctx.JSON(http.StatusOK, responseFromRedis)
+			return
+		}
+	}
+
 	itemEntity, err := mwh.eggsbitNftMetadataService.GetNftItemByIndex(index, eggsbitCollectionIdentifier, ctx)
 	if err != nil {
 		mwh.logger.Error(log.LogCategoryLogic, err.Error())
@@ -63,7 +95,11 @@ func (mwh *MetadataWebHandler) HandleItemData(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSONP(http.StatusOK, mwh.itemResponseBuilder.BuildResponse(*itemEntity))
+	// Set a value to redis
+	response := mwh.itemResponseBuilder.BuildResponse(*itemEntity)
+	mwh.saveResponseInRedis(itemRedisKey, response, ctx)
+
+	ctx.JSONP(http.StatusOK, response)
 }
 
 func (mwh *MetadataWebHandler) getNftItemIndex(ctx *gin.Context) (*big.Int, error) {
@@ -81,5 +117,17 @@ func (mwh *MetadataWebHandler) getNftItemIndex(ctx *gin.Context) (*big.Int, erro
 		return newBigInt, nil
 	} else {
 		return nil, errors.New("item slug is not correct")
+	}
+}
+
+func (mwh *MetadataWebHandler) saveResponseInRedis(key string, obj any, ctx *gin.Context) {
+	responseJson, jsonEncodeErr := json.Marshal(obj)
+	if jsonEncodeErr == nil {
+		redisSetErr := mwh.redisService.SetValue(key, string(responseJson), ctx)
+		if redisSetErr != nil {
+			mwh.logger.Error(log.LogCategorySystem, redisSetErr.Error())
+		}
+	} else {
+		mwh.logger.Error(log.LogCategorySystem, jsonEncodeErr.Error())
 	}
 }

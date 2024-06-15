@@ -22,10 +22,9 @@ func NewMongodbConnection(config *configs.Config, logger log.LoggerInterface) (M
 
 func getMongodbClient(config *configs.Config, logger log.LoggerInterface) (*mongo.Client, error) {
 	var ctx = context.TODO()
-	clientOptions := options.Client().ApplyURI(
-		fmt.Sprintf("mongodb://%s:%s/", config.MongodbConfig.Host, config.MongodbConfig.Port),
-	)
+	clientOptions := options.Client().ApplyURI(getConnectionUri(config))
 	client, err := mongo.Connect(ctx, clientOptions)
+
 	if err != nil {
 		logger.Error(log.LogCategorySystem, err.Error())
 		return nil, err
@@ -38,6 +37,28 @@ func getMongodbClient(config *configs.Config, logger log.LoggerInterface) (*mong
 	}
 
 	return client, nil
+}
+
+func getConnectionUri(config *configs.Config) string {
+	var connectionUri string
+
+	if config.MongodbConfig.User != "" {
+		connectionUri = fmt.Sprintf(
+			"mongodb://%s:%s@%s:%s/admin",
+			config.MongodbConfig.User,
+			config.MongodbConfig.Password,
+			config.MongodbConfig.Host,
+			config.MongodbConfig.Port,
+		)
+	} else {
+		connectionUri = fmt.Sprintf(
+			"mongodb://%s:%s/",
+			config.MongodbConfig.Host,
+			config.MongodbConfig.Port,
+		)
+	}
+
+	return connectionUri
 }
 
 type MongodbInterface interface {

@@ -18,7 +18,7 @@ func NewColorSchemeDocRepository(
 	logger log.LoggerInterface,
 	config *configs.Config,
 ) rep_interface.ColorSchemeDocRepositoryInterface {
-	collection := mongodb.GetClient().Database(config.MongodbConfig.DatabaseName).Collection("color_scheme")
+	collection := mongodb.GetClient().Database(config.MongodbConfig.DatabaseName).Collection("color_schemes")
 	return &ColorSchemeDocRepository{mongodb: mongodb, collection: collection, logger: logger}
 }
 

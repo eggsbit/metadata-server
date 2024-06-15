@@ -18,7 +18,7 @@ func NewImagePatternDocRepository(
 	logger log.LoggerInterface,
 	config *configs.Config,
 ) rep_interface.ImagePatternDocRepositoryInterface {
-	collection := mongodb.GetClient().Database(config.MongodbConfig.DatabaseName).Collection("image_pattern")
+	collection := mongodb.GetClient().Database(config.MongodbConfig.DatabaseName).Collection("image_patterns")
 	return &ImagePatternDocRepository{mongodb: mongodb, collection: collection, logger: logger}
 }
 

@@ -114,7 +114,7 @@
   },
   "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern",
   "identifier": "value_status_egg_rarity_ordinary_egg_pattern_1",
-  "value": "pattern_1",
+  "value": "egg_pattern_1",
   "probability": 0.2,
   "type": "value"
 },{
@@ -123,7 +123,7 @@
   },
   "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern",
   "identifier": "value_status_egg_rarity_ordinary_egg_pattern_2",
-  "value": "pattern_2",
+  "value": "egg_pattern_2",
   "probability": 0.2,
   "type": "value"
 },{
@@ -132,7 +132,7 @@
   },
   "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern",
   "identifier": "value_status_egg_rarity_ordinary_egg_pattern_3",
-  "value": "pattern_3",
+  "value": "egg_pattern_3",
   "probability": 0.2,
   "type": "value"
 },{
@@ -141,7 +141,7 @@
   },
   "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern",
   "identifier": "value_status_egg_rarity_ordinary_egg_pattern_4",
-  "value": "pattern_4",
+  "value": "egg_pattern_4",
   "probability": 0.2,
   "type": "value"
 },{
@@ -150,7 +150,7 @@
   },
   "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern",
   "identifier": "value_status_egg_rarity_ordinary_egg_pattern_5",
-  "value": "pattern_5",
+  "value": "egg_pattern_5",
   "probability": 0.2,
   "type": "value"
 },{
@@ -159,7 +159,7 @@
   },
   "parent_identifier": "key_status_egg_rarity_rare_egg_pattern",
   "identifier": "value_status_egg_rarity_rare_egg_pattern_6",
-  "value": "pattern_6",
+  "value": "egg_pattern_6",
   "probability": 0.3,
   "type": "value"
 },{
@@ -168,7 +168,7 @@
   },
   "parent_identifier": "key_status_egg_rarity_rare_egg_pattern",
   "identifier": "value_status_egg_rarity_rare_egg_pattern_7",
-  "value": "pattern_7",
+  "value": "egg_pattern_7",
   "probability": 0.3,
   "type": "value"
 },{
@@ -177,7 +177,7 @@
   },
   "parent_identifier": "key_status_egg_rarity_rare_egg_pattern",
   "identifier": "value_status_egg_rarity_rare_egg_pattern_8",
-  "value": "pattern_8",
+  "value": "egg_pattern_8",
   "probability": 0.2,
   "type": "value"
 },{
@@ -186,7 +186,7 @@
   },
   "parent_identifier": "key_status_egg_rarity_rare_egg_pattern",
   "identifier": "value_status_egg_rarity_rare_egg_pattern_9",
-  "value": "pattern_9",
+  "value": "egg_pattern_9",
   "probability": 0.2,
   "type": "value"
 },{
@@ -195,7 +195,7 @@
   },
   "parent_identifier": "key_status_egg_rarity_legendary_egg_pattern",
   "identifier": "value_status_egg_rarity_legendary_egg_pattern_10",
-  "value": "pattern_10",
+  "value": "egg_pattern_10",
   "probability": 1,
   "type": "value"
 },{

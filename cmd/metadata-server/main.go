@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/eggsbit/metadata-server/configs"
-	"github.com/eggsbit/metadata-server/internal/infrastructure/di/metadata-server"
+	metadataserver "github.com/eggsbit/metadata-server/internal/infrastructure/di/metadata-server"
 	"go.uber.org/fx"
 )
 

@@ -1,0 +1,61 @@
+[{
+  "_id": {
+    "$oid": "66658f0ae4c51049510f8011"
+  },
+  "identifier": "egg_pattern_1",
+  "path": "assets/nft-item-egg-patterns/pattern_1.svg"
+},{
+  "_id": {
+    "$oid": "66658f4ae4c51049510f8012"
+  },
+  "identifier": "egg_pattern_2",
+  "path": "assets/nft-item-egg-patterns/pattern_2.svg"
+},{
+  "_id": {
+    "$oid": "66658f6de4c51049510f8014"
+  },
+  "identifier": "egg_pattern_3",
+  "path": "assets/nft-item-egg-patterns/pattern_3.svg"
+},{
+  "_id": {
+    "$oid": "66658f74e4c51049510f8015"
+  },
+  "identifier": "egg_pattern_4",
+  "path": "assets/nft-item-egg-patterns/pattern_4.svg"
+},{
+  "_id": {
+    "$oid": "66658f7ae4c51049510f8016"
+  },
+  "identifier": "egg_pattern_5",
+  "path": "assets/nft-item-egg-patterns/pattern_5.svg"
+},{
+  "_id": {
+    "$oid": "66658f7fe4c51049510f8017"
+  },
+  "identifier": "egg_pattern_6",
+  "path": "assets/nft-item-egg-patterns/pattern_6.svg"
+},{
+  "_id": {
+    "$oid": "66658f86e4c51049510f8018"
+  },
+  "identifier": "egg_pattern_7",
+  "path": "assets/nft-item-egg-patterns/pattern_7.svg"
+},{
+  "_id": {
+    "$oid": "66658f8de4c51049510f8019"
+  },
+  "identifier": "egg_pattern_8",
+  "path": "assets/nft-item-egg-patterns/pattern_8.svg"
+},{
+  "_id": {
+    "$oid": "66658f93e4c51049510f801a"
+  },
+  "identifier": "egg_pattern_9",
+  "path": "assets/nft-item-egg-patterns/pattern_9.svg"
+},{
+  "_id": {
+    "$oid": "66658f9ae4c51049510f801b"
+  },
+  "identifier": "egg_pattern_10",
+  "path": "assets/nft-item-egg-patterns/pattern_10.svg"
+}]

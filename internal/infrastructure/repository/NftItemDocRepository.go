@@ -18,7 +18,7 @@ func NewNftItemDocRepository(
 	logger log.LoggerInterface,
 	config *configs.Config,
 ) rep_interface.NftItemDocRepositoryInterface {
-	collection := mongodb.GetClient().Database(config.MongodbConfig.DatabaseName).Collection("nft_item")
+	collection := mongodb.GetClient().Database(config.MongodbConfig.DatabaseName).Collection("nft_items")
 	return &NftItemDocRepository{mongodb: mongodb, collection: collection, logger: logger}
 }
 

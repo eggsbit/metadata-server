@@ -1,0 +1,58 @@
+services:
+  metaserver_app:
+    build: 
+      context: ./../../
+      dockerfile: ./build/docker/metaserver-app/Dockerfile
+      args:
+        - WEB_APPLICATION_PORT=${WEB_APPLICATION_PORT:-8080}
+    volumes:
+      - ./../../export:/app/export:delegated
+    env_file:
+      - .env.test
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      app_net:
+
+  nginx:
+    build: 
+      context: ./../../
+      dockerfile: ./build/docker/nginx/Dockerfile
+    environment:
+      - WEB_APPLICATION_PORT=${WEB_APPLICATION_PORT:-8080}
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./../../export:/app/export:delegated
+    depends_on:
+      - metaserver_app
+    networks:
+      app_net:
+
+  redis:
+    image: redis:7.2.3-alpine3.18
+    volumes:
+      - ./../../volumes/test/redis:/data:delegated
+    networks:
+      app_net:
+
+  mongodb:
+    image: mongo:7.0.2
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER:-root}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD:-example}
+    ports:
+      - 27020:27017
+    volumes:
+      - ./../../volumes/test/mongodb:/data/db:delegated
+    networks:
+      app_net:
+
+networks:
+  app_net:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"

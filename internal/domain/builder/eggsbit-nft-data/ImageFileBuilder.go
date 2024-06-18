@@ -65,6 +65,13 @@ func (ifb ImageFileBuilder) CreateStartingEggImage(
 		lines[lineIndex] = replaceSubstringRegexp.ReplaceAllString(line, colorScheme.Colors[colorKey])
 	}
 	output := strings.Join(lines, "\n")
+
+	mkdirExportCmd := exec.Command("mkdir", "-p", ifb.config.ApplicationConfig.ExportFolderPath)
+	if mkdirExportErr := mkdirExportCmd.Run(); mkdirExportErr != nil {
+		ifb.logger.Error(log.LogCategorySystem, mkdirExportErr.Error())
+		return mkdirExportErr
+	}
+
 	filePathSvg := ifb.config.ApplicationConfig.ExportFolderPath + imageUuid + ".svg"
 	errWriteFile := os.WriteFile(filePathSvg, []byte(output), 0644)
 

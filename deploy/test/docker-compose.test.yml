@@ -1,10 +1,6 @@
 services:
   metaserver_app:
-    build: 
-      context: ./../../
-      dockerfile: ./build/docker/metaserver-app/Dockerfile
-      args:
-        - WEB_APPLICATION_PORT=${WEB_APPLICATION_PORT:-8080}
+    image: registry.gitlab.com/eggsbit/eggsbit-metaserver/metaserver:${APP_IMAGE_TAG:-local}
     volumes:
       - ./../../export:/app/export:delegated
     env_file:
@@ -15,15 +11,21 @@ services:
     networks:
       app_net:
 
-  nginx:
-    build: 
-      context: ./../../
-      dockerfile: ./build/docker/nginx/Dockerfile
+  nginx_metaserver:
+    image: registry.gitlab.com/eggsbit/eggsbit-metaserver/nginx-metaserver:${NGINX_METASERVER_IMAGE_TAG:-local}
     environment:
       - WEB_APPLICATION_PORT=${WEB_APPLICATION_PORT:-8080}
     ports:
-      - 80:80
-      - 443:443
+      - "${NGINX_METASERVER_PORT:-8082}:80"
+    depends_on:
+      - metaserver_app
+    networks:
+      app_net:
+
+  nginx_static:
+    image: registry.gitlab.com/eggsbit/eggsbit-metaserver/nginx-static:${NGINX_STATIC_IMAGE_TAG:-local}
+    ports:
+      - "${NGINX_STATIC_PORT:-8083}:80"
     volumes:
       - ./../../export:/app/export:delegated
     depends_on:

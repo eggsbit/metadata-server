@@ -3,6 +3,7 @@ services:
     image: registry.gitlab.com/eggsbit/eggsbit-metaserver/metaserver:${APP_IMAGE_TAG:-local}
     volumes:
       - ./../../export:/app/export:delegated
+      - ./../../assets:/app/assets:cached
     env_file:
       - .env.test
     depends_on:

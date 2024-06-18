@@ -2,13 +2,12 @@
   "_id": {
     "$oid": "666322b3e4c51049510f7fd1"
   },
-  "cover_image": "https://www.shadygrovefertility.com/wp-content/uploads/2023/07/Egg-supply-blog.png",
-  "description": "Collection of web3.0 eggsbit game",
-  "image": "https://static01.nyt.com/images/2022/08/26/dining/kc-sunny-side-up-eggs/kc-sunny-side-up-eggs-square640.jpg",
+  "cover_image": "https://image.test.eggsbit.io/eggsbit/nft-collection/collection_cover.png",
+  "description": "Eggsbit web3.0 game collection. Discover the magical world of EggsBit, where each NFT is a unique egg destined to hatch into a one-of-a-kind digital pet. As an owner, you'll nurture and care for your pet, watching it grow and evolve. Join us and become part of the EggsBit community today!",
+  "image": "https://image.test.eggsbit.io/eggsbit/nft-collection/collection_logo.png",
   "name": "Eggsbit Collection",
   "social_links": [
-    "https://eggsbit.io/",
-    "https://t.me/eggs"
+    "https://x.com/eggsbit_game"
   ],
   "identifier": "eggsbit_collection"
 }]

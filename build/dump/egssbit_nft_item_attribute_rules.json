@@ -115,7 +115,7 @@
   "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern",
   "identifier": "value_status_egg_rarity_ordinary_egg_pattern_1",
   "value": "egg_pattern_1",
-  "probability": 0.2,
+  "probability": 0.12,
   "type": "value"
 },{
   "_id": {
@@ -124,7 +124,7 @@
   "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern",
   "identifier": "value_status_egg_rarity_ordinary_egg_pattern_2",
   "value": "egg_pattern_2",
-  "probability": 0.2,
+  "probability": 0.12,
   "type": "value"
 },{
   "_id": {
@@ -133,7 +133,7 @@
   "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern",
   "identifier": "value_status_egg_rarity_ordinary_egg_pattern_3",
   "value": "egg_pattern_3",
-  "probability": 0.2,
+  "probability": 0.12,
   "type": "value"
 },{
   "_id": {
@@ -142,7 +142,7 @@
   "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern",
   "identifier": "value_status_egg_rarity_ordinary_egg_pattern_4",
   "value": "egg_pattern_4",
-  "probability": 0.2,
+  "probability": 0.12,
   "type": "value"
 },{
   "_id": {
@@ -151,52 +151,88 @@
   "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern",
   "identifier": "value_status_egg_rarity_ordinary_egg_pattern_5",
   "value": "egg_pattern_5",
-  "probability": 0.2,
+  "probability": 0.12,
+  "type": "value"
+},{
+  "_id": {
+    "$oid": "66657d75e4c51049540f7ff9"
+  },
+  "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern",
+  "identifier": "value_status_egg_rarity_ordinary_egg_pattern_6",
+  "value": "egg_pattern_6",
+  "probability": 0.12,
+  "type": "value"
+},{
+  "_id": {
+    "$oid": "66657d75e4c51049530f7ff9"
+  },
+  "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern",
+  "identifier": "value_status_egg_rarity_ordinary_egg_pattern_7",
+  "value": "egg_pattern_7",
+  "probability": 0.12,
+  "type": "value"
+},{
+  "_id": {
+    "$oid": "66657d75e4c51049520f7ff9"
+  },
+  "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern",
+  "identifier": "value_status_egg_rarity_ordinary_egg_pattern_8",
+  "value": "egg_pattern_8",
+  "probability": 0.16,
   "type": "value"
 },{
   "_id": {
     "$oid": "6665808ee4c51049510f7ffa"
   },
   "parent_identifier": "key_status_egg_rarity_rare_egg_pattern",
-  "identifier": "value_status_egg_rarity_rare_egg_pattern_6",
-  "value": "egg_pattern_6",
-  "probability": 0.3,
+  "identifier": "value_status_egg_rarity_rare_egg_pattern_9",
+  "value": "egg_pattern_9",
+  "probability": 0.25,
   "type": "value"
 },{
   "_id": {
     "$oid": "6665809fe4c51049510f7ffb"
   },
   "parent_identifier": "key_status_egg_rarity_rare_egg_pattern",
-  "identifier": "value_status_egg_rarity_rare_egg_pattern_7",
-  "value": "egg_pattern_7",
-  "probability": 0.3,
+  "identifier": "value_status_egg_rarity_rare_egg_pattern_10",
+  "value": "egg_pattern_10",
+  "probability": 0.25,
   "type": "value"
 },{
   "_id": {
     "$oid": "666580b5e4c51049510f7ffc"
   },
   "parent_identifier": "key_status_egg_rarity_rare_egg_pattern",
-  "identifier": "value_status_egg_rarity_rare_egg_pattern_8",
-  "value": "egg_pattern_8",
-  "probability": 0.2,
+  "identifier": "value_status_egg_rarity_rare_egg_pattern_11",
+  "value": "egg_pattern_11",
+  "probability": 0.25,
   "type": "value"
 },{
   "_id": {
     "$oid": "666580c0e4c51049510f7ffd"
   },
   "parent_identifier": "key_status_egg_rarity_rare_egg_pattern",
-  "identifier": "value_status_egg_rarity_rare_egg_pattern_9",
-  "value": "egg_pattern_9",
-  "probability": 0.2,
+  "identifier": "value_status_egg_rarity_rare_egg_pattern_12",
+  "value": "egg_pattern_12",
+  "probability": 0.25,
   "type": "value"
 },{
   "_id": {
     "$oid": "666580f0e4c51049510f7ffe"
   },
   "parent_identifier": "key_status_egg_rarity_legendary_egg_pattern",
-  "identifier": "value_status_egg_rarity_legendary_egg_pattern_10",
-  "value": "egg_pattern_10",
-  "probability": 1,
+  "identifier": "value_status_egg_rarity_legendary_egg_pattern_13",
+  "value": "egg_pattern_13",
+  "probability": 0.5,
+  "type": "value"
+},{
+  "_id": {
+    "$oid": "666580f0e4c51049511f7ffe"
+  },
+  "parent_identifier": "key_status_egg_rarity_legendary_egg_pattern",
+  "identifier": "value_status_egg_rarity_legendary_egg_pattern_14",
+  "value": "egg_pattern_14",
+  "probability": 0.5,
   "type": "value"
 },{
   "_id": {
@@ -240,31 +276,31 @@
   "type": "key"
 },{
   "_id": {
+    "$oid": "666582b9e4c51049510f8007"
+  },
+  "parent_identifier": "value_status_egg_rarity_ordinary_egg_pattern_6",
+  "identifier": "key_status_egg_rarity_ordinary_egg_pattern_6_color_scheme",
+  "key": "color_scheme",
+  "type": "key"
+},{
+  "_id": {
+    "$oid": "666582b9e4c51049510f8006"
+  },
+  "parent_identifier": "value_status_egg_rarity_ordinary_egg_pattern_7",
+  "identifier": "key_status_egg_rarity_ordinary_egg_pattern_7_color_scheme",
+  "key": "color_scheme",
+  "type": "key"
+},{
+  "_id": {
+    "$oid": "666582b9e4c51049510f8005"
+  },
+  "parent_identifier": "value_status_egg_rarity_ordinary_egg_pattern_8",
+  "identifier": "key_status_egg_rarity_ordinary_egg_pattern_8_color_scheme",
+  "key": "color_scheme",
+  "type": "key"
+},{
+  "_id": {
     "$oid": "666582c0e4c51049510f8005"
-  },
-  "parent_identifier": "value_status_egg_rarity_rare_egg_pattern_6",
-  "identifier": "key_status_egg_rarity_rare_egg_pattern_6_color_scheme",
-  "key": "color_scheme",
-  "type": "key"
-},{
-  "_id": {
-    "$oid": "666582c7e4c51049510f8006"
-  },
-  "parent_identifier": "value_status_egg_rarity_rare_egg_pattern_7",
-  "identifier": "key_status_egg_rarity_rare_egg_pattern_7_color_scheme",
-  "key": "color_scheme",
-  "type": "key"
-},{
-  "_id": {
-    "$oid": "666582cee4c51049510f8007"
-  },
-  "parent_identifier": "value_status_egg_rarity_rare_egg_pattern_8",
-  "identifier": "key_status_egg_rarity_rare_egg_pattern_8_color_scheme",
-  "key": "color_scheme",
-  "type": "key"
-},{
-  "_id": {
-    "$oid": "666582d4e4c51049510f8008"
   },
   "parent_identifier": "value_status_egg_rarity_rare_egg_pattern_9",
   "identifier": "key_status_egg_rarity_rare_egg_pattern_9_color_scheme",
@@ -272,10 +308,42 @@
   "type": "key"
 },{
   "_id": {
+    "$oid": "666582c7e4c51049510f8006"
+  },
+  "parent_identifier": "value_status_egg_rarity_rare_egg_pattern_10",
+  "identifier": "key_status_egg_rarity_rare_egg_pattern_10_color_scheme",
+  "key": "color_scheme",
+  "type": "key"
+},{
+  "_id": {
+    "$oid": "666582cee4c51049510f8007"
+  },
+  "parent_identifier": "value_status_egg_rarity_rare_egg_pattern_11",
+  "identifier": "key_status_egg_rarity_rare_egg_pattern_11_color_scheme",
+  "key": "color_scheme",
+  "type": "key"
+},{
+  "_id": {
+    "$oid": "666582d4e4c51049510f8008"
+  },
+  "parent_identifier": "value_status_egg_rarity_rare_egg_pattern_12",
+  "identifier": "key_status_egg_rarity_rare_egg_pattern_12_color_scheme",
+  "key": "color_scheme",
+  "type": "key"
+},{
+  "_id": {
     "$oid": "666582dce4c51049510f8009"
   },
-  "parent_identifier": "value_status_egg_rarity_legendary_egg_pattern_10",
-  "identifier": "key_status_egg_rarity_legendary_egg_pattern_10_color_scheme",
+  "parent_identifier": "value_status_egg_rarity_legendary_egg_pattern_13",
+  "identifier": "key_status_egg_rarity_legendary_egg_pattern_13_color_scheme",
+  "key": "color_scheme",
+  "type": "key"
+},{
+  "_id": {
+    "$oid": "666582dce4c51049810f8009"
+  },
+  "parent_identifier": "value_status_egg_rarity_legendary_egg_pattern_14",
+  "identifier": "key_status_egg_rarity_legendary_egg_pattern_14_color_scheme",
   "key": "color_scheme",
   "type": "key"
 },{
@@ -285,24 +353,15 @@
   "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern_1_color_scheme",
   "identifier": "key_status_egg_rarity_ordinary_egg_pattern_1_color_scheme_1",
   "value": "egg_color_scheme_1",
-  "probability": 0.5,
-  "type": "value"
-},{
-  "_id": {
-    "$oid": "6665925fe4c51049510f8027"
-  },
-  "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern_1_color_scheme",
-  "identifier": "key_status_egg_rarity_ordinary_egg_pattern_1_color_scheme_2",
-  "value": "egg_color_scheme_2",
-  "probability": 0.5,
+  "probability": 1,
   "type": "value"
 },{
   "_id": {
     "$oid": "666592b3e4c51049510f8028"
   },
   "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern_2_color_scheme",
-  "identifier": "key_status_egg_rarity_ordinary_egg_pattern_2_color_scheme_3",
-  "value": "egg_color_scheme_3",
+  "identifier": "key_status_egg_rarity_ordinary_egg_pattern_2_color_scheme_2",
+  "value": "egg_color_scheme_2",
   "probability": 1,
   "type": "value"
 },{
@@ -310,8 +369,8 @@
     "$oid": "666592e6e4c51049510f8029"
   },
   "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern_3_color_scheme",
-  "identifier": "key_status_egg_rarity_ordinary_egg_pattern_3_color_scheme_4",
-  "value": "egg_color_scheme_4",
+  "identifier": "key_status_egg_rarity_ordinary_egg_pattern_3_color_scheme_3",
+  "value": "egg_color_scheme_3",
   "probability": 1,
   "type": "value"
 },{
@@ -319,8 +378,8 @@
     "$oid": "666592fbe4c51049510f802a"
   },
   "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern_4_color_scheme",
-  "identifier": "key_status_egg_rarity_ordinary_egg_pattern_4_color_scheme_5",
-  "value": "egg_color_scheme_5",
+  "identifier": "key_status_egg_rarity_ordinary_egg_pattern_4_color_scheme_4",
+  "value": "egg_color_scheme_4",
   "probability": 1,
   "type": "value"
 },{
@@ -328,53 +387,89 @@
     "$oid": "6665930de4c51049510f802b"
   },
   "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern_5_color_scheme",
-  "identifier": "key_status_egg_rarity_ordinary_egg_pattern_5_color_scheme_6",
+  "identifier": "key_status_egg_rarity_ordinary_egg_pattern_5_color_scheme_5",
+  "value": "egg_color_scheme_5",
+  "probability": 1,
+  "type": "value"
+},{
+  "_id": {
+    "$oid": "6665930de4c51049511f802b"
+  },
+  "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern_6_color_scheme",
+  "identifier": "key_status_egg_rarity_ordinary_egg_pattern_6_color_scheme_6",
   "value": "egg_color_scheme_6",
+  "probability": 1,
+  "type": "value"
+},{
+  "_id": {
+    "$oid": "6665930de4c51049512f802b"
+  },
+  "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern_7_color_scheme",
+  "identifier": "key_status_egg_rarity_ordinary_egg_pattern_7_color_scheme_7",
+  "value": "egg_color_scheme_7",
+  "probability": 1,
+  "type": "value"
+},{
+  "_id": {
+    "$oid": "6665930de4c51049513f802b"
+  },
+  "parent_identifier": "key_status_egg_rarity_ordinary_egg_pattern_8_color_scheme",
+  "identifier": "key_status_egg_rarity_ordinary_egg_pattern_8_color_scheme_8",
+  "value": "egg_color_scheme_8",
   "probability": 1,
   "type": "value"
 },{
   "_id": {
     "$oid": "6665933ae4c51049510f802c"
   },
-  "parent_identifier": "key_status_egg_rarity_rare_egg_pattern_6_color_scheme",
-  "identifier": "key_status_egg_rarity_rare_egg_pattern_6_color_scheme_7",
-  "value": "egg_color_scheme_7",
+  "parent_identifier": "key_status_egg_rarity_rare_egg_pattern_9_color_scheme",
+  "identifier": "key_status_egg_rarity_rare_egg_pattern_9_color_scheme_9",
+  "value": "egg_color_scheme_9",
   "probability": 1,
   "type": "value"
 },{
   "_id": {
     "$oid": "6665935ee4c51049510f802d"
   },
-  "parent_identifier": "key_status_egg_rarity_rare_egg_pattern_7_color_scheme",
-  "identifier": "key_status_egg_rarity_rare_egg_pattern_7_color_scheme_8",
-  "value": "egg_color_scheme_8",
+  "parent_identifier": "key_status_egg_rarity_rare_egg_pattern_10_color_scheme",
+  "identifier": "key_status_egg_rarity_rare_egg_pattern_10_color_scheme_10",
+  "value": "egg_color_scheme_10",
   "probability": 1,
   "type": "value"
 },{
   "_id": {
     "$oid": "66659373e4c51049510f802e"
   },
-  "parent_identifier": "key_status_egg_rarity_rare_egg_pattern_8_color_scheme",
-  "identifier": "key_status_egg_rarity_rare_egg_pattern_8_color_scheme_9",
-  "value": "egg_color_scheme_9",
+  "parent_identifier": "key_status_egg_rarity_rare_egg_pattern_11_color_scheme",
+  "identifier": "key_status_egg_rarity_rare_egg_pattern_11_color_scheme_11",
+  "value": "egg_color_scheme_11",
   "probability": 1,
   "type": "value"
 },{
   "_id": {
     "$oid": "66659389e4c51049510f802f"
   },
-  "parent_identifier": "key_status_egg_rarity_rare_egg_pattern_9_color_scheme",
-  "identifier": "key_status_egg_rarity_rare_egg_pattern_9_color_scheme_10",
-  "value": "egg_color_scheme_10",
+  "parent_identifier": "key_status_egg_rarity_rare_egg_pattern_12_color_scheme",
+  "identifier": "key_status_egg_rarity_rare_egg_pattern_12_color_scheme_12",
+  "value": "egg_color_scheme_12",
   "probability": 1,
   "type": "value"
 },{
   "_id": {
     "$oid": "666593fbe4c51049510f8030"
   },
-  "parent_identifier": "key_status_egg_rarity_legendary_egg_pattern_10_color_scheme",
-  "identifier": "key_status_egg_rarity_legendary_egg_pattern_10_color_scheme_11",
-  "value": "egg_color_scheme_11",
+  "parent_identifier": "key_status_egg_rarity_legendary_egg_pattern_13_color_scheme",
+  "identifier": "key_status_egg_rarity_legendary_egg_pattern_13_color_scheme_13",
+  "value": "egg_color_scheme_13",
+  "probability": 1,
+  "type": "value"
+},{
+  "_id": {
+    "$oid": "666593fbe4c51049210f8030"
+  },
+  "parent_identifier": "key_status_egg_rarity_legendary_egg_pattern_14_color_scheme",
+  "identifier": "key_status_egg_rarity_legendary_egg_pattern_14_color_scheme_14",
+  "value": "egg_color_scheme_14",
   "probability": 1,
   "type": "value"
 }]

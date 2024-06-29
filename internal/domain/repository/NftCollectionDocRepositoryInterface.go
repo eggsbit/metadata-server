@@ -7,5 +7,5 @@ import (
 )
 
 type NftCollectionDocRepositoryInterface interface {
-	GetCollectionByIdentifier(index string, ctx context.Context) (*entity.NftCollection, error)
+	GetCollectionByIdentifier(identifier string, ctx context.Context) (*entity.NftCollection, error)
 }

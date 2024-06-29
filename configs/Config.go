@@ -32,6 +32,7 @@ type Config struct {
 	}
 	ApplicationConfig struct {
 		NftItemImageBaseUrl    string
+		ExportPngSettingsDpi   string
 		ExportFolderPath       string
 		DeployWalletAddress    string
 		NftCollectionAddress   string
@@ -101,6 +102,7 @@ func (c *Config) loadMetadataServerConfiguration() {
 
 func (c *Config) loadApplicationConfiguration() {
 	c.ApplicationConfig.NftItemImageBaseUrl = os.Getenv("NFT_ITEM_IMAGE_BASE_URL")
+	c.ApplicationConfig.ExportPngSettingsDpi = os.Getenv("EXPORT_PNG_SETTINGS_DPI")
 	c.ApplicationConfig.ExportFolderPath = os.Getenv("EXPORT_FOLDER_PATH")
 	c.ApplicationConfig.DeployWalletAddress = os.Getenv("DEPLOY_WALLET_ADDRESS")
 	c.ApplicationConfig.NftCollectionAddress = os.Getenv("NFT_COLLECTION_ADDRESS")

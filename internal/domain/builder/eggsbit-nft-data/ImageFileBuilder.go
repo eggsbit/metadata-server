@@ -80,7 +80,8 @@ func (ifb ImageFileBuilder) CreateStartingEggImage(
 	}
 
 	filePathPng := ifb.config.ApplicationConfig.ExportFolderPath + imageUuid + ".png"
-	inkscapeCmd := exec.Command("inkscape", "--export-type=png", "--export-dpi=300", "--export-filename="+filePathPng, filePathSvg)
+	exportDpi := ifb.config.ApplicationConfig.ExportPngSettingsDpi
+	inkscapeCmd := exec.Command("inkscape", "--export-type=png", "--export-dpi="+exportDpi, "--export-filename="+filePathPng, filePathSvg)
 	if inkscapeErr := inkscapeCmd.Run(); inkscapeErr != nil {
 		return inkscapeErr
 	}

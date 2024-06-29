@@ -8,6 +8,7 @@ import (
 	"regexp"
 
 	"github.com/eggsbit/metadata-server/internal/application/builder"
+	miniappmetadata "github.com/eggsbit/metadata-server/internal/domain/service/mini-app-metadata"
 	nftmetadata "github.com/eggsbit/metadata-server/internal/domain/service/nft-metadata"
 	"github.com/eggsbit/metadata-server/internal/infrastructure/http/response"
 	log "github.com/eggsbit/metadata-server/internal/infrastructure/logger"
@@ -17,26 +18,32 @@ import (
 
 func NewMetadataWebHandler(
 	eggsbitNftMetadataService nftmetadata.EggsbitNftMetadataServiceInterface,
+	eggsbitMiniAppMetadataService miniappmetadata.EggsbitMiniAppMetadataServiceInterface,
 	collectionResponseBuilder builder.EggsbitNftCollectionMetadataResponseBuilderInterface,
 	itemResponseBuilder builder.EggsbitNftItemMetadataResponseBuilderInterface,
+	miniAppResponseBuilder builder.EggsbitMiniAppMetadataResponseBuilderInterface,
 	redisService redisstore.RedisServiceInterface,
 	logger log.LoggerInterface,
 ) *MetadataWebHandler {
 	return &MetadataWebHandler{
-		eggsbitNftMetadataService: eggsbitNftMetadataService,
-		collectionResponseBuilder: collectionResponseBuilder,
-		itemResponseBuilder:       itemResponseBuilder,
-		redisService:              redisService,
-		logger:                    logger,
+		eggsbitNftMetadataService:     eggsbitNftMetadataService,
+		eggsbitMiniAppMetadataService: eggsbitMiniAppMetadataService,
+		collectionResponseBuilder:     collectionResponseBuilder,
+		itemResponseBuilder:           itemResponseBuilder,
+		miniAppResponseBuilder:        miniAppResponseBuilder,
+		redisService:                  redisService,
+		logger:                        logger,
 	}
 }
 
 type MetadataWebHandler struct {
-	eggsbitNftMetadataService nftmetadata.EggsbitNftMetadataServiceInterface
-	collectionResponseBuilder builder.EggsbitNftCollectionMetadataResponseBuilderInterface
-	itemResponseBuilder       builder.EggsbitNftItemMetadataResponseBuilderInterface
-	redisService              redisstore.RedisServiceInterface
-	logger                    log.LoggerInterface
+	eggsbitNftMetadataService     nftmetadata.EggsbitNftMetadataServiceInterface
+	eggsbitMiniAppMetadataService miniappmetadata.EggsbitMiniAppMetadataServiceInterface
+	collectionResponseBuilder     builder.EggsbitNftCollectionMetadataResponseBuilderInterface
+	itemResponseBuilder           builder.EggsbitNftItemMetadataResponseBuilderInterface
+	miniAppResponseBuilder        builder.EggsbitMiniAppMetadataResponseBuilderInterface
+	redisService                  redisstore.RedisServiceInterface
+	logger                        log.LoggerInterface
 }
 
 func (mwh *MetadataWebHandler) HandleCollectionData(ctx *gin.Context) {
@@ -100,6 +107,33 @@ func (mwh *MetadataWebHandler) HandleItemData(ctx *gin.Context) {
 	mwh.saveResponseInRedis(itemRedisKey, response, ctx)
 
 	ctx.JSONP(http.StatusOK, response)
+}
+
+func (mwh *MetadataWebHandler) HandleMiniAppData(ctx *gin.Context) {
+	eggsbitMiniAppIdentifier := "eggsbit_mini_app"
+
+	// Get a value from redis if it exists
+	redisValue, redisGetErr := mwh.redisService.GetValue(eggsbitMiniAppIdentifier, ctx)
+	if redisGetErr == nil {
+		var responseFromRedis response.MiniAppMetadataWebResponse
+		jsonDecodeErr := json.Unmarshal([]byte(*redisValue), &responseFromRedis)
+		if jsonDecodeErr == nil {
+			ctx.JSON(http.StatusOK, responseFromRedis)
+			return
+		}
+	}
+
+	miniAppEntity, miniAppEntityErr := mwh.eggsbitMiniAppMetadataService.GetMiniAppByIdentifier(eggsbitMiniAppIdentifier, ctx)
+	if miniAppEntityErr != nil {
+		ctx.Status(http.StatusNotFound)
+		return
+	}
+
+	// Set a value to redis
+	response := mwh.miniAppResponseBuilder.BuildResponse(*miniAppEntity)
+	mwh.saveResponseInRedis(eggsbitMiniAppIdentifier, response, ctx)
+
+	ctx.JSON(http.StatusOK, response)
 }
 
 func (mwh *MetadataWebHandler) getNftItemIndex(ctx *gin.Context) (*big.Int, error) {

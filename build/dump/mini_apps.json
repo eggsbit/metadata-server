@@ -1,0 +1,9 @@
+[{
+  "_id": {
+    "$oid": "66803bcc7d5c0718f302961e"
+  },
+  "identifier": "eggsbit_mini_app",
+  "name": "Eggsbit Game TEST",
+  "url": "https://miniapp.test.eggsbit.io/",
+  "icon_url": "https://image.test.eggsbit.io/eggsbit/mini-app/logo.png"
+}]

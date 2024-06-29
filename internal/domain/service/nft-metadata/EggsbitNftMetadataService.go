@@ -5,7 +5,6 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/eggsbit/metadata-server/configs"
 	eggsbitnftdata "github.com/eggsbit/metadata-server/internal/domain/builder/eggsbit-nft-data"
 	"github.com/eggsbit/metadata-server/internal/domain/constant"
 	"github.com/eggsbit/metadata-server/internal/domain/entity"
@@ -21,7 +20,6 @@ func NewEggsbitNftMetadataService(
 	imageFileBuilder eggsbitnftdata.ImageFileBuilderInterface,
 	tonBlockchainService blockchain.TonBlockchainServiceInterface,
 	logger log.LoggerInterface,
-	config *configs.Config,
 ) EggsbitNftMetadataServiceInterface {
 	return &EggsbitNftMetadataService{
 		nftCollectionRepository: nftCollectionRepository,
@@ -30,7 +28,6 @@ func NewEggsbitNftMetadataService(
 		imageFileBuilder:        imageFileBuilder,
 		tonBlockchainService:    tonBlockchainService,
 		logger:                  logger,
-		config:                  config,
 	}
 }
 
@@ -47,7 +44,6 @@ type EggsbitNftMetadataService struct {
 	imageFileBuilder        eggsbitnftdata.ImageFileBuilderInterface
 	tonBlockchainService    blockchain.TonBlockchainServiceInterface
 	logger                  log.LoggerInterface
-	config                  *configs.Config
 }
 
 func (enms *EggsbitNftMetadataService) GetCollectionByIdentifier(indentifier string, ctx context.Context) (*entity.NftCollection, error) {

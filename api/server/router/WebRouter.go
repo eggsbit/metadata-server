@@ -21,4 +21,5 @@ func (wr *WebRouter) Create(router *gin.Engine) {
 	webRouterGroup := router.Group("/meta/eggsbit/")
 	webRouterGroup.GET("/collection.json", wr.metadataWebHandler.HandleCollectionData)
 	webRouterGroup.GET("/:item_slug", wr.metadataWebHandler.HandleItemData)
+	webRouterGroup.GET("/tonconnect-manifest.json", wr.metadataWebHandler.HandleMiniAppData)
 }

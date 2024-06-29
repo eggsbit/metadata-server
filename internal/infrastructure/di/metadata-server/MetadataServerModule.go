@@ -10,6 +10,7 @@ import (
 	"github.com/eggsbit/metadata-server/configs"
 	"github.com/eggsbit/metadata-server/internal/application/builder"
 	eggsbitnftdata "github.com/eggsbit/metadata-server/internal/domain/builder/eggsbit-nft-data"
+	miniapp "github.com/eggsbit/metadata-server/internal/domain/service/mini-app-metadata"
 	nftmetadata "github.com/eggsbit/metadata-server/internal/domain/service/nft-metadata"
 	"github.com/eggsbit/metadata-server/internal/infrastructure/blockchain"
 	blockchainService "github.com/eggsbit/metadata-server/internal/infrastructure/blockchain/service"
@@ -42,9 +43,12 @@ func (msm MetadataServerModule) BuildOptions(config *configs.Config) fx.Option {
 			repository.NewEggsbitNftItemAttributeRulesDocRepository,
 			repository.NewColorSchemeDocRepository,
 			repository.NewImagePatternDocRepository,
+			repository.NewMiniAppDocRepository,
 			nftmetadata.NewEggsbitNftMetadataService,
+			miniapp.NewEggsbitMiniAppMetadataService,
 			builder.NewEggsbitNftCollectionMetadataResponseBuilder,
 			builder.NewEggsbitNftItemMetadataResponseBuilder,
+			builder.NewEggsbitMiniAppMetadataResponseBuilder,
 			eggsbitnftdata.NewImageFileBuilder,
 			eggsbitnftdata.NewNftItemBuilder,
 			blockchain.NewTonBlockchainConnection,
